@@ -47,9 +47,9 @@ Partial Class frmStart
         Me.Label1.ForeColor = System.Drawing.Color.Indigo
         Me.Label1.Location = New System.Drawing.Point(143, 9)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(177, 99)
+        Me.Label1.Size = New System.Drawing.Size(199, 99)
         Me.Label1.TabIndex = 5
-        Me.Label1.Text = "Relationship" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "checks need" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "your attention."
+        Me.Label1.Text = "Relationship" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "checks may need" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "your attention."
         '
         'Label2
         '
@@ -58,13 +58,13 @@ Partial Class frmStart
         Me.Label2.ForeColor = System.Drawing.Color.Indigo
         Me.Label2.Location = New System.Drawing.Point(143, 109)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(206, 33)
+        Me.Label2.Size = New System.Drawing.Size(214, 33)
         Me.Label2.TabIndex = 6
-        Me.Label2.Text = "Clear them now?"
+        Me.Label2.Text = "Check them now?"
         '
         'btnOK
         '
-        Me.btnOK.Location = New System.Drawing.Point(32, 153)
+        Me.btnOK.Location = New System.Drawing.Point(39, 152)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Size = New System.Drawing.Size(136, 33)
         Me.btnOK.TabIndex = 7
@@ -73,7 +73,8 @@ Partial Class frmStart
         '
         'btnCancel
         '
-        Me.btnCancel.Location = New System.Drawing.Point(184, 153)
+        Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.btnCancel.Location = New System.Drawing.Point(191, 152)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(136, 33)
         Me.btnCancel.TabIndex = 8
@@ -82,14 +83,17 @@ Partial Class frmStart
         '
         'frmStart
         '
+        Me.AcceptButton = Me.btnOK
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(353, 197)
+        Me.CancelButton = Me.btnCancel
+        Me.ClientSize = New System.Drawing.Size(361, 197)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnOK)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.PictureBox1)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "frmStart"
         Me.Text = "frmStart"
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()

@@ -22,6 +22,7 @@ Partial Class frmProgressbox
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmProgressbox))
         Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
         Me.lblStatus = New System.Windows.Forms.Label()
         Me.SuspendLayout()
@@ -51,6 +52,7 @@ Partial Class frmProgressbox
         Me.ClientSize = New System.Drawing.Size(363, 97)
         Me.Controls.Add(Me.lblStatus)
         Me.Controls.Add(Me.ProgressBar1)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "frmProgressbox"
         Me.Text = "frmProgressbox"
         Me.ResumeLayout(False)

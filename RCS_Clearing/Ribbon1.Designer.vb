@@ -42,17 +42,18 @@
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Ribbon1))
-        Me.tabRCS = Me.Factory.CreateRibbonTab
+        Me.tabQT = Me.Factory.CreateRibbonTab
         Me.Group1 = Me.Factory.CreateRibbonGroup
         Me.btnRCSCheck = Me.Factory.CreateRibbonButton
-        Me.tabRCS.SuspendLayout()
+        Me.tabQT.SuspendLayout()
         Me.Group1.SuspendLayout()
+        Me.SuspendLayout()
         '
-        'tabRCS
+        'tabQT
         '
-        Me.tabRCS.Groups.Add(Me.Group1)
-        Me.tabRCS.Label = "RCS"
-        Me.tabRCS.Name = "tabRCS"
+        Me.tabQT.Groups.Add(Me.Group1)
+        Me.tabQT.Label = "QUICKTOOLS"
+        Me.tabQT.Name = "tabQT"
         '
         'Group1
         '
@@ -72,17 +73,18 @@
         '
         Me.Name = "Ribbon1"
         Me.RibbonType = "Microsoft.Outlook.Explorer"
-        Me.Tabs.Add(Me.tabRCS)
-        Me.tabRCS.ResumeLayout(False)
-        Me.tabRCS.PerformLayout()
+        Me.Tabs.Add(Me.tabQT)
+        Me.tabQT.ResumeLayout(False)
+        Me.tabQT.PerformLayout()
         Me.Group1.ResumeLayout(False)
         Me.Group1.PerformLayout()
+        Me.ResumeLayout(False)
 
     End Sub
 
     Friend WithEvents Group1 As Microsoft.Office.Tools.Ribbon.RibbonGroup
     Friend WithEvents btnRCSCheck As Microsoft.Office.Tools.Ribbon.RibbonButton
-    Public WithEvents tabRCS As Microsoft.Office.Tools.Ribbon.RibbonTab
+    Public WithEvents tabQT As Microsoft.Office.Tools.Ribbon.RibbonTab
 End Class
 
 Partial Class ThisRibbonCollection

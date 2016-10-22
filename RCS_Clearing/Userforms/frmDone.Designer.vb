@@ -81,6 +81,7 @@ Partial Class frmDone
         Me.Controls.Add(Me.lblTitle)
         Me.Controls.Add(Me.lblCount)
         Me.Controls.Add(Me.btnOK)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "frmDone"
         Me.Text = "Done!"
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()

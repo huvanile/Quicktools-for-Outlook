@@ -24,13 +24,17 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{AAC29B2E-C3AF-40CA-97D1-8F55066CD357}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>RCS_Clearing</RootNamespace>
-    <AssemblyName>RCS_Clearing</AssemblyName>
+    <RootNamespace>Quicktools</RootNamespace>
+    <AssemblyName>Quicktools for Outlook</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <DefineConstants>VSTO40</DefineConstants>
     <StartupObject>
     </StartupObject>
     <IsWebBootstrapper>False</IsWebBootstrapper>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <PublishUrl>L:\eTools\rcsOutlook\current\</PublishUrl>
     <InstallUrl>\\dal-fs-001\bas%24\eTools\rcsOutlook\current\</InstallUrl>
@@ -46,10 +50,6 @@
     <FriendlyName>RCS_Clearing</FriendlyName>
     <OfficeApplicationDescription />
     <LoadBehavior>3</LoadBehavior>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
@@ -112,7 +112,7 @@
     <DebugSymbols>true</DebugSymbols>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>RCS_Clearing.xml</DocumentationFile>
+    <DocumentationFile>Quicktools for Outlook.xml</DocumentationFile>
     <RegisterForComInterop>false</RegisterForComInterop>
     <RemoveIntegerChecks>false</RemoveIntegerChecks>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
@@ -141,7 +141,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>RCS_Clearing.xml</DocumentationFile>
+    <DocumentationFile>Quicktools for Outlook.xml</DocumentationFile>
     <RegisterForComInterop>false</RegisterForComInterop>
     <RemoveIntegerChecks>false</RemoveIntegerChecks>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
@@ -211,24 +211,26 @@
   -->
   <ItemGroup>
     <AppDesigner Include="My Project\" />
-    <Compile Include="frmDone.Designer.vb">
+    <Compile Include="Userforms\frmDone.Designer.vb">
       <DependentUpon>frmDone.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmDone.vb">
+    <Compile Include="Userforms\frmDone.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmProgressbox.Designer.vb">
+    <Compile Include="Userforms\frmProgressbox.Designer.vb">
       <DependentUpon>frmProgressbox.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmProgressbox.vb">
+    <Compile Include="Userforms\frmProgressbox.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmStart.Designer.vb">
+    <Compile Include="Userforms\frmStart.Designer.vb">
       <DependentUpon>frmStart.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmStart.vb">
+    <Compile Include="Userforms\frmStart.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Helpers\browserHelpers.vb" />
+    <Compile Include="rcs.vb" />
     <Compile Include="Ribbon1.Designer.vb">
       <DependentUpon>Ribbon1.vb</DependentUpon>
     </Compile>
@@ -238,17 +240,26 @@
     <Compile Include="ThisAddIn.vb">
       <SubType>Code</SubType>
     </Compile>
-    <EmbeddedResource Include="frmDone.resx">
+    <Compile Include="Taskpanes\tpnRCSStart.Designer.vb">
+      <DependentUpon>tpnRCSStart.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Taskpanes\tpnRCSStart.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <EmbeddedResource Include="Userforms\frmDone.resx">
       <DependentUpon>frmDone.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmProgressbox.resx">
+    <EmbeddedResource Include="Userforms\frmProgressbox.resx">
       <DependentUpon>frmProgressbox.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmStart.resx">
+    <EmbeddedResource Include="Userforms\frmStart.resx">
       <DependentUpon>frmStart.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ribbon1.resx">
       <DependentUpon>Ribbon1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Taskpanes\tpnRCSStart.resx">
+      <DependentUpon>tpnRCSStart.vb</DependentUpon>
     </EmbeddedResource>
     <None Include="RCS_Clearing_TemporaryKey.pfx" />
     <None Include="ThisAddIn.Designer.xml">
@@ -279,6 +290,13 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{94E38DFF-614B-4CBD-B67C-F211BB35CE8B}" />
+  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
