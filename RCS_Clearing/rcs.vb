@@ -7,11 +7,10 @@ Public Class rcs
     Const tryCount As Integer = 3       'maximum tries to load a page during the clearing process before giving up
 
     'class-wide variables
-    Dim progressForm As New frmProgressbox
-    Dim doneForm As New frmDone
     Dim clearCount As Single = 0        ' running count of all checks cleared
     Dim checkList As String = ""        ' list of all names of checks to clear
     Dim checkCount As Integer = 0       ' total of all checks available to be cleared
+    Public inProgress As Boolean
 
     'factory sub which does the guts of this ribbon
     Public Sub clearRCAStuff()
@@ -25,7 +24,7 @@ Public Class rcs
         Dim btnInput As Object = Nothing    ' MSHTML.HTMLInputElement
         Dim Link As Object = Nothing        ' MSHTML.HTMLAnchorElement
         Dim ElementCol As Object = Nothing  ' MSHTML.IHTMLElementCollection
-        Dim i As Integer = 50                ' counter used for status bar incrementing
+        Dim i As Integer = 0               ' counter used for status bar incrementing
 
         'instantiate IE
         appIE = GetIE()
@@ -33,14 +32,11 @@ Public Class rcs
         'appIE.Visible = True
 
         'load site
-        progressForm.ProgressBar1.Increment(10)
-        progressForm.lblStatus.Text = "Opening RCS Site in IE"
-        progressForm.Show()
+        Ribbon1.taskpaneRCSStart.lblStatus.Text = "Opening RCS Site in IE"
         appIE.navigate(sURL)
 
         'check for checks needing a response
-        progressForm.ProgressBar1.Increment(50)
-        progressForm.lblStatus.Text = "Looking for open checks"
+        Ribbon1.taskpaneRCSStart.lblStatus.Text = "Looking for open checks"
         waitForPageLoad()
         checkForConflictsOrExit() : If Not ThisAddIn.proceed Then Exit Sub
         askUserIfWantToClear() : If Not ThisAddIn.proceed Then Exit Sub
@@ -50,13 +46,12 @@ loadFirstPage:
 
         '''' not sure where these next 4 lines should go...
         If checkCount = 0 Then
-            MsgBox("Something went wrong.  Please make sure that you're on VPN and that you can access the RCS site in an Internet browser (https://rcs.gt.com). If this problem persists please contact the developer.", vbCritical, ThisAddIn.title)
+            Ribbon1.taskpaneRCSStart.lblStatus.Text = "Something went wrong.  Check your connectivity to the GT network and try again."
             Exit Sub
         End If
         i += 1
-        progressForm.ProgressBar1.Increment(i / checkCount)
-        progressForm.lblStatus.Text = "Clearing check " & i & " of " & checkCount
-        progressForm.Show()
+        Ribbon1.taskpaneRCSStart.lblStatus.Text = "Clearing check " & i & " of " & checkCount
+
         '''' 
 
         waitForPageLoad()
@@ -79,11 +74,8 @@ loadFirstPage:
         'exit gracefully if needed
         If Not clicked Then
             appIE = Nothing
-            progressForm.ProgressBar1.Increment(100)
-            progressForm.lblStatus.Text = "Done! " & clearCount & " checks cleared!"
-            progressForm.Hide()
-            doneForm.lblCount.Text = clearCount
-            doneForm.ShowDialog()
+            Ribbon1.taskpaneRCSStart.lblQuestion.Text = "Done!"
+            Ribbon1.taskpaneRCSStart.lblStatus.Text = clearCount & " checks cleared!"
             Exit Sub
         End If
 
@@ -119,23 +111,18 @@ loadSecondPage:
         For Each fontTag In ElementCol
             If fontTag.innerHTML Like "*There are no checks that require response*" Then
                 If clearCount > 0 Then
-                    progressForm.ProgressBar1.Increment(100)
-                    progressForm.lblStatus.Text = "Done! " & clearCount & " checks cleared!"
-                    progressForm.Hide()
-                    doneForm.lblCount.Text = clearCount
-                    doneForm.ShowDialog()
+                    Ribbon1.taskpaneRCSStart.lblQuestion.Text = "Done!"
+                    Ribbon1.taskpaneRCSStart.lblStatus.Text = clearCount & " checks cleared!"
+                    Ribbon1.taskpaneRCSStart.pboxDonate.Visible = True
                 Else
-                    progressForm.ProgressBar1.Increment(100)
-                    progressForm.lblStatus.Text = "There are no checks that require response"
-                    progressForm.Hide()
-                    doneForm.lblTitle.Text = "No checks" & Chr(10) & "need clearing" & Chr(10) & "@ this time"
-                    doneForm.lblCount.Text = ""
-                    doneForm.ShowDialog()
+
+                    Ribbon1.taskpaneRCSStart.lblStatus.Text = "There are no checks that require response"
+                    Ribbon1.taskpaneRCSStart.lblQuestion.Text = "No checks need clearing at this time"
+                    Ribbon1.taskpaneRCSStart.pboxDonate.Visible = True
                 End If
                 appIE.Quit()
                 appIE = Nothing
                 ThisAddIn.proceed = False
-                progressForm.Hide()
                 Exit Sub
             End If
         Next fontTag
@@ -155,17 +142,12 @@ loadSecondPage:
                 End If
             End If
         Next tData
-        progressForm.Hide()
         If checkCount > 0 Then
-            If MsgBox("Would you like to clear the following relationship checks?" & vbCrLf & vbCrLf & checkList, vbYesNoCancel, ThisAddIn.title) <> vbYes Then
-                doneForm.lblTitle.Text = "Okay, nothing" & Chr(10) & "was touched." & Chr(10) & "Goodbye."
-                doneForm.lblCount.Text = ""
-                doneForm.ShowDialog()
-                appIE.Quit()
-                appIE = Nothing
-                ThisAddIn.proceed = False
-                Exit Sub
-            End If
+            With Ribbon1.taskpaneRCSStart.txtEntities
+                .Text = checkList
+                .Visible = True
+            End With
+            Ribbon1.taskpaneRCSStart.lblQuestion.Text = "Clear the following relationship checks?"
         Else
             checkForConflictsOrExit()
         End If

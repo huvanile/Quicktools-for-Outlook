@@ -211,24 +211,6 @@
   -->
   <ItemGroup>
     <AppDesigner Include="My Project\" />
-    <Compile Include="Userforms\frmDone.Designer.vb">
-      <DependentUpon>frmDone.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Userforms\frmDone.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Userforms\frmProgressbox.Designer.vb">
-      <DependentUpon>frmProgressbox.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Userforms\frmProgressbox.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Userforms\frmStart.Designer.vb">
-      <DependentUpon>frmStart.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Userforms\frmStart.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Helpers\browserHelpers.vb" />
     <Compile Include="rcs.vb" />
     <Compile Include="Ribbon1.Designer.vb">
@@ -246,15 +228,6 @@
     <Compile Include="Taskpanes\tpnRCSStart.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <EmbeddedResource Include="Userforms\frmDone.resx">
-      <DependentUpon>frmDone.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Userforms\frmProgressbox.resx">
-      <DependentUpon>frmProgressbox.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Userforms\frmStart.resx">
-      <DependentUpon>frmStart.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Ribbon1.resx">
       <DependentUpon>Ribbon1.vb</DependentUpon>
     </EmbeddedResource>
@@ -296,7 +269,12 @@
   <ItemGroup>
     <Service Include="{94E38DFF-614B-4CBD-B67C-F211BB35CE8B}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Userforms\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\paypal-donation-button.png" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
