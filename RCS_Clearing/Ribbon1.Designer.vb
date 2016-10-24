@@ -45,20 +45,24 @@
         Me.tabQT = Me.Factory.CreateRibbonTab
         Me.Group1 = Me.Factory.CreateRibbonGroup
         Me.btnRCSCheck = Me.Factory.CreateRibbonButton
+        Me.Group2 = Me.Factory.CreateRibbonGroup
+        Me.btnShare = Me.Factory.CreateRibbonButton
         Me.tabQT.SuspendLayout()
         Me.Group1.SuspendLayout()
+        Me.Group2.SuspendLayout()
         Me.SuspendLayout()
         '
         'tabQT
         '
         Me.tabQT.Groups.Add(Me.Group1)
+        Me.tabQT.Groups.Add(Me.Group2)
         Me.tabQT.Label = "QUICKTOOLS"
         Me.tabQT.Name = "tabQT"
         '
         'Group1
         '
         Me.Group1.Items.Add(Me.btnRCSCheck)
-        Me.Group1.Label = "RCS Tools"
+        Me.Group1.Label = "GT Tools"
         Me.Group1.Name = "Group1"
         '
         'btnRCSCheck
@@ -68,6 +72,22 @@
         Me.btnRCSCheck.Label = "Clear Conflicts"
         Me.btnRCSCheck.Name = "btnRCSCheck"
         Me.btnRCSCheck.ShowImage = True
+        Me.btnRCSCheck.SuperTip = "Attempt to automatically clear open relationship checks"
+        '
+        'Group2
+        '
+        Me.Group2.Items.Add(Me.btnShare)
+        Me.Group2.Label = "Add-in Tools"
+        Me.Group2.Name = "Group2"
+        '
+        'btnShare
+        '
+        Me.btnShare.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
+        Me.btnShare.Image = CType(resources.GetObject("btnShare.Image"), System.Drawing.Image)
+        Me.btnShare.Label = "Share This Add-in"
+        Me.btnShare.Name = "btnShare"
+        Me.btnShare.ShowImage = True
+        Me.btnShare.SuperTip = "Prepare an email to share this ribbon with a co-worker"
         '
         'Ribbon1
         '
@@ -78,6 +98,8 @@
         Me.tabQT.PerformLayout()
         Me.Group1.ResumeLayout(False)
         Me.Group1.PerformLayout()
+        Me.Group2.ResumeLayout(False)
+        Me.Group2.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -85,6 +107,8 @@
     Friend WithEvents Group1 As Microsoft.Office.Tools.Ribbon.RibbonGroup
     Friend WithEvents btnRCSCheck As Microsoft.Office.Tools.Ribbon.RibbonButton
     Public WithEvents tabQT As Microsoft.Office.Tools.Ribbon.RibbonTab
+    Friend WithEvents Group2 As Microsoft.Office.Tools.Ribbon.RibbonGroup
+    Friend WithEvents btnShare As Microsoft.Office.Tools.Ribbon.RibbonButton
 End Class
 
 Partial Class ThisRibbonCollection

@@ -8,16 +8,20 @@ Public Class tpnRCSStart
             ThisAddIn.proceed = True
             If myRCS.inProgress = False Then
                 myRCS.inProgress = True
-                myRCS.clearRCAStuff()
+                btnCancel.Visible = False
+                btnOK.Visible = False
+                lblQuestion.Text = "Working..."
+                myRCS.startRCSClearing()
             Else
-                If lblStatus.Text Like "*no checks*" Then
+                If lblStatus.Text Like "*no checks*" Or lblStatus.Text Like "*cleared!*" Then
                     'no checks needed clearing, so do the same action as the cancel button
                     ThisAddIn.proceed = False
                     Ribbon1.ctpRCSStart.Visible = False
                     Ribbon1.ctpRCSStart.Dispose()
                     If Not IsNothing(myRCS) Then myRCS = Nothing
                 Else
-                    myRCS.checkForConflictsOrExit()
+                    myRCS.inProgress = True
+                    myRCS.finishRCSClearing()
                 End If
 
             End If
@@ -49,7 +53,7 @@ Public Class tpnRCSStart
         End Try
     End Sub
 
-    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles pboxDonate.Click
+    Private Sub PictureBox1_Click(sender As Object, e As EventArgs)
         If IsNothing(appIE) Then appIE = GetIE()
         appIE.Visible = True
         appIE.navigate("https://paypal.me/chromepanda")

@@ -13,18 +13,7 @@ Public Class rcs
     Public inProgress As Boolean
 
     'factory sub which does the guts of this ribbon
-    Public Sub clearRCAStuff()
-
-        'variable declaration
-        Dim clicked As Boolean = False
-        Dim clicked2 As Boolean = False
-        Dim attempts As Integer = 0
-        Dim attempts2 As Integer = 0
-        Dim myLinks As Object = Nothing
-        Dim btnInput As Object = Nothing    ' MSHTML.HTMLInputElement
-        Dim Link As Object = Nothing        ' MSHTML.HTMLAnchorElement
-        Dim ElementCol As Object = Nothing  ' MSHTML.IHTMLElementCollection
-        Dim i As Integer = 0               ' counter used for status bar incrementing
+    Public Sub startRCSClearing()
 
         'instantiate IE
         appIE = GetIE()
@@ -41,18 +30,29 @@ Public Class rcs
         checkForConflictsOrExit() : If Not ThisAddIn.proceed Then Exit Sub
         askUserIfWantToClear() : If Not ThisAddIn.proceed Then Exit Sub
 
+    End Sub
+
+    Public Sub finishRCSClearing()
+        'variable declaration
+        Dim clicked As Boolean = False
+        Dim clicked2 As Boolean = False
+        Dim attempts As Integer = 0
+        Dim attempts2 As Integer = 0
+        Dim myLinks As Object = Nothing
+        Dim btnInput As Object = Nothing    ' MSHTML.HTMLInputElement
+        Dim Link As Object = Nothing        ' MSHTML.HTMLAnchorElement
+        Dim ElementCol As Object = Nothing  ' MSHTML.IHTMLElementCollection
+        Dim i As Integer = 0               ' counter used for status bar incrementing
+
         'go into the detail page for each conflict
 loadFirstPage:
 
-        '''' not sure where these next 4 lines should go...
         If checkCount = 0 Then
             Ribbon1.taskpaneRCSStart.lblStatus.Text = "Something went wrong.  Check your connectivity to the GT network and try again."
             Exit Sub
         End If
         i += 1
         Ribbon1.taskpaneRCSStart.lblStatus.Text = "Clearing check " & i & " of " & checkCount
-
-        '''' 
 
         waitForPageLoad()
         checkForConflictsOrExit() : If Not ThisAddIn.proceed Then Exit Sub
@@ -78,8 +78,6 @@ loadFirstPage:
             Ribbon1.taskpaneRCSStart.lblStatus.Text = clearCount & " checks cleared!"
             Exit Sub
         End If
-
-        On Error GoTo 0
 
 loadSecondPage:
 
@@ -113,12 +111,10 @@ loadSecondPage:
                 If clearCount > 0 Then
                     Ribbon1.taskpaneRCSStart.lblQuestion.Text = "Done!"
                     Ribbon1.taskpaneRCSStart.lblStatus.Text = clearCount & " checks cleared!"
-                    Ribbon1.taskpaneRCSStart.pboxDonate.Visible = True
                 Else
-
                     Ribbon1.taskpaneRCSStart.lblStatus.Text = "There are no checks that require response"
                     Ribbon1.taskpaneRCSStart.lblQuestion.Text = "No checks need clearing at this time"
-                    Ribbon1.taskpaneRCSStart.pboxDonate.Visible = True
+                    Ribbon1.taskpaneRCSStart.btnOK.Visible = True
                 End If
                 appIE.Quit()
                 appIE = Nothing
@@ -148,6 +144,9 @@ loadSecondPage:
                 .Visible = True
             End With
             Ribbon1.taskpaneRCSStart.lblQuestion.Text = "Clear the following relationship checks?"
+            Ribbon1.taskpaneRCSStart.btnCancel.Visible = True
+            Ribbon1.taskpaneRCSStart.btnOK.Visible = True
+            Ribbon1.taskpaneRCSStart.lblStatus.Text = "Pending relationship checks:"
         Else
             checkForConflictsOrExit()
         End If

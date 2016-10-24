@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class tpnRCSStart
     Inherits System.Windows.Forms.UserControl
 
     'UserControl overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,21 +20,18 @@ Partial Class tpnRCSStart
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(tpnRCSStart))
         Me.lblQuestion = New System.Windows.Forms.Label()
         Me.btnOK = New System.Windows.Forms.Button()
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.lblStatus = New System.Windows.Forms.Label()
         Me.txtEntities = New System.Windows.Forms.TextBox()
-        Me.pboxDonate = New System.Windows.Forms.PictureBox()
-        CType(Me.pboxDonate, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblQuestion
         '
-        Me.lblQuestion.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblQuestion.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblQuestion.ForeColor = System.Drawing.Color.Black
         Me.lblQuestion.Location = New System.Drawing.Point(14, 0)
         Me.lblQuestion.Name = "lblQuestion"
@@ -78,23 +75,11 @@ Partial Class tpnRCSStart
         'txtEntities
         '
         Me.txtEntities.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtEntities.Location = New System.Drawing.Point(15, 162)
+        Me.txtEntities.Location = New System.Drawing.Point(14, 160)
         Me.txtEntities.Multiline = True
         Me.txtEntities.Name = "txtEntities"
         Me.txtEntities.Size = New System.Drawing.Size(189, 221)
         Me.txtEntities.TabIndex = 14
-        '
-        'pboxDonate
-        '
-        Me.pboxDonate.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.pboxDonate.Image = CType(resources.GetObject("pboxDonate.Image"), System.Drawing.Image)
-        Me.pboxDonate.Location = New System.Drawing.Point(18, 177)
-        Me.pboxDonate.Name = "pboxDonate"
-        Me.pboxDonate.Size = New System.Drawing.Size(186, 95)
-        Me.pboxDonate.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.pboxDonate.TabIndex = 15
-        Me.pboxDonate.TabStop = False
-        Me.pboxDonate.Visible = False
         '
         'tpnRCSStart
         '
@@ -105,10 +90,8 @@ Partial Class tpnRCSStart
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnOK)
         Me.Controls.Add(Me.lblQuestion)
-        Me.Controls.Add(Me.pboxDonate)
         Me.Name = "tpnRCSStart"
         Me.Size = New System.Drawing.Size(219, 601)
-        CType(Me.pboxDonate, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -118,5 +101,4 @@ Partial Class tpnRCSStart
     Friend WithEvents btnCancel As Windows.Forms.Button
     Public WithEvents lblStatus As Windows.Forms.Label
     Friend WithEvents txtEntities As Windows.Forms.TextBox
-    Friend WithEvents pboxDonate As Windows.Forms.PictureBox
 End Class
