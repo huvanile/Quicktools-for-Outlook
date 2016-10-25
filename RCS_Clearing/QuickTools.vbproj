@@ -212,6 +212,7 @@
   <ItemGroup>
     <AppDesigner Include="My Project\" />
     <Compile Include="Helpers\browserHelpers.vb" />
+    <Compile Include="Helpers\EmailHelpers.vb" />
     <Compile Include="rcs.vb" />
     <Compile Include="Ribbon1.Designer.vb">
       <DependentUpon>Ribbon1.vb</DependentUpon>

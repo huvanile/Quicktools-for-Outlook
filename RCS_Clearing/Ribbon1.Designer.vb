@@ -46,6 +46,7 @@
         Me.Group1 = Me.Factory.CreateRibbonGroup
         Me.btnRCSCheck = Me.Factory.CreateRibbonButton
         Me.Group2 = Me.Factory.CreateRibbonGroup
+        Me.btnFeedback = Me.Factory.CreateRibbonButton
         Me.btnShare = Me.Factory.CreateRibbonButton
         Me.tabQT.SuspendLayout()
         Me.Group1.SuspendLayout()
@@ -76,15 +77,22 @@
         '
         'Group2
         '
+        Me.Group2.Items.Add(Me.btnFeedback)
         Me.Group2.Items.Add(Me.btnShare)
         Me.Group2.Label = "Add-in Tools"
         Me.Group2.Name = "Group2"
         '
+        'btnFeedback
+        '
+        Me.btnFeedback.Image = CType(resources.GetObject("btnFeedback.Image"), System.Drawing.Image)
+        Me.btnFeedback.Label = "Contact the Developers"
+        Me.btnFeedback.Name = "btnFeedback"
+        Me.btnFeedback.ShowImage = True
+        '
         'btnShare
         '
-        Me.btnShare.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
         Me.btnShare.Image = CType(resources.GetObject("btnShare.Image"), System.Drawing.Image)
-        Me.btnShare.Label = "Share This Add-in"
+        Me.btnShare.Label = "Share this Add-in"
         Me.btnShare.Name = "btnShare"
         Me.btnShare.ShowImage = True
         Me.btnShare.SuperTip = "Prepare an email to share this ribbon with a co-worker"
@@ -109,6 +117,7 @@
     Public WithEvents tabQT As Microsoft.Office.Tools.Ribbon.RibbonTab
     Friend WithEvents Group2 As Microsoft.Office.Tools.Ribbon.RibbonGroup
     Friend WithEvents btnShare As Microsoft.Office.Tools.Ribbon.RibbonButton
+    Friend WithEvents btnFeedback As Microsoft.Office.Tools.Ribbon.RibbonButton
 End Class
 
 Partial Class ThisRibbonCollection

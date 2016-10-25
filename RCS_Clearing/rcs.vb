@@ -44,6 +44,10 @@ Public Class rcs
         Dim ElementCol As Object = Nothing  ' MSHTML.IHTMLElementCollection
         Dim i As Integer = 0               ' counter used for status bar incrementing
 
+        Ribbon1.taskpaneRCSStart.lblQuestion.Text = "Working..."
+        Ribbon1.taskpaneRCSStart.btnOK.Visible = False
+        Ribbon1.taskpaneRCSStart.btnCancel.Visible = False
+
         'go into the detail page for each conflict
 loadFirstPage:
 
