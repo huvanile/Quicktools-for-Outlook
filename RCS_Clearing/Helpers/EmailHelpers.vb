@@ -1,9 +1,19 @@
 ﻿Imports System.Diagnostics
 Imports System.Reflection
 Imports System.Runtime.InteropServices
-Imports Outlook = Microsoft.Office.Interop.Outlook
+Imports Microsoft.Office.Interop.Outlook
 
 Public Class EmailHelpers
+
+    Public Shared Function justCurrentEmail(ByVal str As String) As String
+        Dim endOfMsg
+        endOfMsg = InStr(str, "From:")
+        If endOfMsg = 0 Then
+            justCurrentEmail = str
+        Else
+            justCurrentEmail = Left(str, endOfMsg)
+        End If
+    End Function
 
     ''' <summary>
     ''' Builds, but does not send, an email in outlook
@@ -23,6 +33,8 @@ Public Class EmailHelpers
             mail.Display(True)
         Catch ex As System.Exception
             System.Windows.Forms.MessageBox.Show(ex.Message)
+        Finally
+            appOutlook = Nothing
         End Try
     End Sub
 
@@ -51,7 +63,7 @@ Public Class EmailHelpers
             ' If so, use the GetActiveObject method to obtain the process and cast it to an Application object.
             Try
                 application = DirectCast(Marshal.GetActiveObject("Outlook.Application"), Outlook.Application)
-            Catch ex As Exception
+            Catch ex As system.Exception
                 ' If fails, create a new instance of Outlook and log on to the default profile.
                 application = New Outlook.Application()
                 Dim ns As Outlook.NameSpace = application.GetNamespace("MAPI")
