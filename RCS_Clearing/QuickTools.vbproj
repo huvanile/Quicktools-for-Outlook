@@ -39,7 +39,7 @@
     <PublishUrl>L:\eTools\rcsOutlook\current\</PublishUrl>
     <InstallUrl>\\dal-fs-001\bas%24\eTools\rcsOutlook\current\</InstallUrl>
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>1.0.0.1</ApplicationVersion>
+    <ApplicationVersion>1.0.0.2</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>7</UpdateInterval>
@@ -218,14 +218,28 @@
     <Compile Include="Helpers\browserHelpers.vb" />
     <Compile Include="Helpers\EmailHelpers.vb" />
     <Compile Include="Helpers\ExcelHelpers.vb" />
+    <Compile Include="Helpers\ImgurHelpers.vb" />
     <Compile Include="Helpers\RegistryHelpers.vb" />
+    <Compile Include="Helpers\StegHelpers.vb" />
     <Compile Include="ListInboxInExcel.vb" />
     <Compile Include="rcs.vb" />
-    <Compile Include="Ribbon1.Designer.vb">
+    <Compile Include="Ribbons\Ribbon1.Designer.vb">
       <DependentUpon>Ribbon1.vb</DependentUpon>
     </Compile>
-    <Compile Include="Ribbon1.vb">
+    <Compile Include="Ribbons\Ribbon1.vb">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Ribbons\RibbonNewMessage.Designer.vb">
+      <DependentUpon>RibbonNewMessage.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Ribbons\RibbonNewMessage.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Taskpanes\tpnStegSteg.Designer.vb">
+      <DependentUpon>tpnStegSteg.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Taskpanes\tpnStegSteg.vb">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ThisAddIn.vb">
       <SubType>Code</SubType>
@@ -236,11 +250,17 @@
     <Compile Include="Taskpanes\tpnRCSStart.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <EmbeddedResource Include="Ribbon1.resx">
+    <EmbeddedResource Include="Ribbons\Ribbon1.resx">
       <DependentUpon>Ribbon1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ribbons\RibbonNewMessage.resx">
+      <DependentUpon>RibbonNewMessage.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Taskpanes\tpnRCSStart.resx">
       <DependentUpon>tpnRCSStart.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Taskpanes\tpnStegSteg.resx">
+      <DependentUpon>tpnStegSteg.vb</DependentUpon>
     </EmbeddedResource>
     <None Include="QuickTools_TemporaryKey.pfx" />
     <None Include="RCS_Clearing_TemporaryKey.pfx" />

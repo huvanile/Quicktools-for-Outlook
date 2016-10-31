@@ -6,8 +6,7 @@ Imports Quicktools.RegistryHelpers
 
 Public Class Ribbon1
     Dim ribbon As Microsoft.Office.Core.IRibbonUI
-    Public Shared taskpaneRCSStart As tpnRCSStart
-    Public Shared ctpRCSStart As Microsoft.Office.Tools.CustomTaskPane
+    Public Shared taskpaneRCSStart As tpnRCSStart : Public Shared ctpRCSStart As Microsoft.Office.Tools.CustomTaskPane
 
     'click handler
     Private Sub btnRCSCheck_Click(sender As Object, e As RibbonControlEventArgs) Handles btnRCSCheck.Click
@@ -40,21 +39,18 @@ Public Class Ribbon1
     End Sub
 
     Private Sub btnOpenRandomEmail_Click(sender As Object, e As RibbonControlEventArgs) Handles btnOpenRandomEmail.Click
-        Dim appOutlook As Outlook.Application : appOutlook = GetOutlook()
         Dim appExcel As Microsoft.Office.Interop.Excel.Application : appExcel = GetExcel()
-        Dim oNs As Outlook.Namespace : oNs = appOutlook.GetNamespace("MAPI")
+        Dim oNs As Outlook.NameSpace : oNs = ThisAddIn.appOutlook.GetNamespace("MAPI")
         Dim oFldr As Outlook.MAPIFolder : oFldr = oNs.GetDefaultFolder(OlDefaultFolders.olFolderInbox)
         oFldr.Items(appExcel.Application.WorksheetFunction.RandBetween(1, oFldr.Items.Count)).Display
         oFldr = Nothing
         oNs = Nothing
-        appOutlook = Nothing
         appExcel = Nothing
     End Sub
 
     Private Sub btnOpenCalReplies_Click(sender As Object, e As RibbonControlEventArgs) Handles btnOpenCalReplies.Click
-        Dim appOutlook As Outlook.Application : appOutlook = GetOutlook()
         Dim found As Boolean : found = False
-        Dim oNs As Outlook.NameSpace : oNs = appOutlook.GetNamespace("MAPI")
+        Dim oNs As Outlook.NameSpace : oNs = ThisAddIn.appOutlook.GetNamespace("MAPI")
         Dim oFldr As Outlook.MAPIFolder : oFldr = oNs.GetDefaultFolder(OlDefaultFolders.olFolderInbox)
         Dim oMessage As Object
         For Each oMessage In oFldr.Items
@@ -69,14 +65,12 @@ Public Class Ribbon1
         oMessage = Nothing
         oFldr = Nothing
         oNs = Nothing
-        appOutlook = Nothing
-        If Not found Then MsgBox("No calendar responses found in the inbox", vbInformation, ThisAddIn.title)
+        If Not found Then MsgBox("No calendar responses found in the inbox", vbInformation, ThisAddIn.Title)
     End Sub
 
     Private Sub btnOpenVoicemails_Click(sender As Object, e As RibbonControlEventArgs) Handles btnOpenVoicemails.Click
-        Dim appOutlook As Outlook.Application : appOutlook = GetOutlook()
         Dim found As Boolean : found = False
-        Dim oNs As Outlook.NameSpace : oNs = appOutlook.GetNamespace("MAPI")
+        Dim oNs As Outlook.NameSpace : oNs = ThisAddIn.appOutlook.GetNamespace("MAPI")
         Dim oFldr As Outlook.MAPIFolder : oFldr = oNs.GetDefaultFolder(OlDefaultFolders.olFolderInbox)
         Dim oMessage As Object
         For Each oMessage In oFldr.Items
@@ -88,14 +82,12 @@ Public Class Ribbon1
         oMessage = Nothing
         oFldr = Nothing
         oNs = Nothing
-        appOutlook = Nothing
-        If Not found Then MsgBox("No voicemails items found in the inbox", vbInformation, ThisAddIn.title)
+        If Not found Then MsgBox("No voicemails items found in the inbox", vbInformation, ThisAddIn.Title)
     End Sub
 
     Private Sub btnOpenCalInvites_Click(sender As Object, e As RibbonControlEventArgs) Handles btnOpenCalInvites.Click
-        Dim appOutlook As Outlook.Application : appOutlook = GetOutlook()
         Dim found As Boolean : found = False
-        Dim oNs As Outlook.NameSpace : oNs = appOutlook.GetNamespace("MAPI")
+        Dim oNs As Outlook.NameSpace : oNs = ThisAddIn.appOutlook.GetNamespace("MAPI")
         Dim oFldr As Outlook.MAPIFolder : oFldr = oNs.GetDefaultFolder(OlDefaultFolders.olFolderInbox)
         Dim oMessage As Object
         For Each oMessage In oFldr.Items
@@ -107,8 +99,7 @@ Public Class Ribbon1
         oMessage = Nothing
         oFldr = Nothing
         oNs = Nothing
-        appOutlook = Nothing
-        If Not found Then MsgBox("No calendar items found in the inbox", vbInformation, ThisAddIn.title)
+        If Not found Then MsgBox("No calendar items found in the inbox", vbInformation, ThisAddIn.Title)
     End Sub
 
     Private Sub btnInboxToExcel_Click(sender As Object, e As RibbonControlEventArgs) Handles btnInboxToExcel.Click
@@ -145,9 +136,8 @@ Public Class Ribbon1
 
     Private Sub btnVIP3_Click(sender As Object, e As RibbonControlEventArgs) Handles btnVIP3.Click
         If Not String.IsNullOrEmpty(ThisAddIn.Vip3) Then
-            Dim appOutlook As Outlook.Application : appOutlook = GetOutlook()
             Dim found As Boolean : found = False
-            Dim oNs As Outlook.NameSpace : oNs = appOutlook.GetNamespace("MAPI")
+            Dim oNs As Outlook.NameSpace : oNs = ThisAddIn.appOutlook.GetNamespace("MAPI")
             Dim oFldr As Outlook.MAPIFolder : oFldr = oNs.GetDefaultFolder(OlDefaultFolders.olFolderInbox)
             Dim oMessage As Object
             For Each oMessage In oFldr.Items
@@ -159,7 +149,6 @@ Public Class Ribbon1
             oMessage = Nothing
             oFldr = Nothing
             oNs = Nothing
-            appOutlook = Nothing
             If Not found Then MsgBox("No emails from this person found in the inbox. Try using just their last name if you feel you reached this message in error.", vbInformation, ThisAddIn.Title)
         Else
             MsgBox("Please populate the name field in the ribbon and try again.", vbInformation, ThisAddIn.Title)
@@ -168,9 +157,8 @@ Public Class Ribbon1
 
     Private Sub btnVIP2_Click(sender As Object, e As RibbonControlEventArgs) Handles btnVIP2.Click
         If Not String.IsNullOrEmpty(ThisAddIn.Vip2) Then
-            Dim appOutlook As Outlook.Application : appOutlook = GetOutlook()
             Dim found As Boolean : found = False
-            Dim oNs As Outlook.NameSpace : oNs = appOutlook.GetNamespace("MAPI")
+            Dim oNs As Outlook.NameSpace : oNs = ThisAddIn.appOutlook.GetNamespace("MAPI")
             Dim oFldr As Outlook.MAPIFolder : oFldr = oNs.GetDefaultFolder(OlDefaultFolders.olFolderInbox)
             Dim oMessage As Object
             For Each oMessage In oFldr.Items
@@ -182,7 +170,6 @@ Public Class Ribbon1
             oMessage = Nothing
             oFldr = Nothing
             oNs = Nothing
-            appOutlook = Nothing
             If Not found Then MsgBox("No emails from this person found in the inbox. Try using just their last name if you feel you reached this message in error.", vbInformation, ThisAddIn.Title)
         Else
             MsgBox("Please populate the name field in the ribbon and try again.", vbInformation, ThisAddIn.Title)
@@ -191,9 +178,8 @@ Public Class Ribbon1
 
     Private Sub btnVIP1_Click(sender As Object, e As RibbonControlEventArgs) Handles btnVIP1.Click
         If Not String.IsNullOrEmpty(ThisAddIn.Vip1) Then
-            Dim appOutlook As Outlook.Application : appOutlook = GetOutlook()
             Dim found As Boolean : found = False
-            Dim oNs As Outlook.NameSpace : oNs = appOutlook.GetNamespace("MAPI")
+            Dim oNs As Outlook.NameSpace : oNs = ThisAddIn.appOutlook.GetNamespace("MAPI")
             Dim oFldr As Outlook.MAPIFolder : oFldr = oNs.GetDefaultFolder(OlDefaultFolders.olFolderInbox)
             Dim oMessage As Object
             For Each oMessage In oFldr.Items
@@ -205,10 +191,11 @@ Public Class Ribbon1
             oMessage = Nothing
             oFldr = Nothing
             oNs = Nothing
-            appOutlook = Nothing
             If Not found Then MsgBox("No emails from this person found in the inbox. Try using just their last name if you feel you reached this message in error.", vbInformation, ThisAddIn.Title)
         Else
             MsgBox("Please populate the name field in the ribbon and try again.", vbInformation, ThisAddIn.Title)
         End If
     End Sub
+
+
 End Class

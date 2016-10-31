@@ -42,16 +42,18 @@ Partial Class tpnRCSStart
         '
         'btnOK
         '
+        Me.btnOK.BackColor = System.Drawing.SystemColors.Control
         Me.btnOK.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnOK.Location = New System.Drawing.Point(14, 68)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Size = New System.Drawing.Size(88, 33)
         Me.btnOK.TabIndex = 9
         Me.btnOK.Text = "OK"
-        Me.btnOK.UseVisualStyleBackColor = True
+        Me.btnOK.UseVisualStyleBackColor = False
         '
         'btnCancel
         '
+        Me.btnCancel.BackColor = System.Drawing.SystemColors.Control
         Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.btnCancel.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnCancel.Location = New System.Drawing.Point(119, 68)
@@ -59,7 +61,7 @@ Partial Class tpnRCSStart
         Me.btnCancel.Size = New System.Drawing.Size(88, 33)
         Me.btnCancel.TabIndex = 10
         Me.btnCancel.Text = "Cancel"
-        Me.btnCancel.UseVisualStyleBackColor = True
+        Me.btnCancel.UseVisualStyleBackColor = False
         '
         'lblStatus
         '

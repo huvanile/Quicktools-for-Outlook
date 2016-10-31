@@ -5,6 +5,40 @@ Imports Microsoft.Office.Interop.Outlook
 
 Public Class EmailHelpers
 
+    Public Shared Sub SwapAndSteg(mail As Outlook.MailItem, steggedImage As String)
+        If Not String.IsNullOrEmpty(mail.HTMLBody) AndAlso mail.HTMLBody.ToLower().Contains("</body>") Then
+            mail.Attachments.Add(steggedImage, OlAttachmentType.olEmbeddeditem)
+            mail.Body = "Hey I thought you'd get a kick out of this pic, check it out"
+            mail.Save()
+        End If
+
+    End Sub
+
+    Public Shared Property WIPEmailHTMLBody As String
+        Get
+            Dim mail As Outlook.MailItem = ThisAddIn.appOutlook.ActiveInspector.CurrentItem
+            Return mail.HTMLBody
+        End Get
+        Set(value As String)
+
+        End Set
+    End Property
+
+    Public Shared Property SelectedEmailHTMLBody As String
+        Get
+            If ThisAddIn.appOutlook.ActiveExplorer().Selection.Count > 0 Then
+                Dim selMail As Outlook.MailItem = ThisAddIn.appOutlook.ActiveExplorer().Selection(1)
+                Return selMail.HTMLBody
+            Else
+                Debug.Print("selection is not a mailitem")
+                Return String.Empty
+            End If
+        End Get
+        Set(value As String)
+
+        End Set
+    End Property
+
     Public Shared Function justCurrentEmail(ByVal str As String) As String
         Dim endOfMsg
         endOfMsg = InStr(str, "From:")
@@ -21,10 +55,9 @@ Public Class EmailHelpers
     ''' <param name="subject">Email subject</param>
     ''' <param name="body">Email body</param>
     Public Shared Sub BuildEmail(ByVal subject As String, body As StringBuilder, Optional recipient As String = "")
-        Dim appOutlook As Outlook.Application : appOutlook = GetOutlook()
         Dim mail As Outlook.MailItem = Nothing
         Try
-            mail = appOutlook.CreateItem(Outlook.OlItemType.olMailItem)
+            mail = ThisAddIn.appOutlook.CreateItem(Outlook.OlItemType.olMailItem)
             mail.Subject = "Check out this Outlook Add-in"
             body.AppendLine(GetHTMLSignature)
             mail.HTMLBody = body.ToString
@@ -33,8 +66,6 @@ Public Class EmailHelpers
             mail.Display(True)
         Catch ex As System.Exception
             System.Windows.Forms.MessageBox.Show(ex.Message)
-        Finally
-            appOutlook = Nothing
         End Try
     End Sub
 

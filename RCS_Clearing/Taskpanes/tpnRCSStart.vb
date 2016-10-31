@@ -1,7 +1,9 @@
 ﻿Imports Quicktools.browserHelpers
+Imports System.Threading
 
 Public Class tpnRCSStart
     Dim myRCS As rcs
+    Dim t1 As Thread
 
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
         Try
@@ -21,7 +23,15 @@ Public Class tpnRCSStart
                     If Not IsNothing(myRCS) Then myRCS = Nothing
                 Else
                     myRCS.inProgress = True
-                    myRCS.finishRCSClearing()
+                    t1 = Nothing
+                    t1 = New Thread(AddressOf myRCS.finishRCSClearing, 8000000)
+                    With t1
+                        .IsBackground = True
+                        .Priority = ThreadPriority.Lowest
+                        .SetApartmentState(ApartmentState.STA)
+                        .Start()
+                    End With
+
                 End If
 
             End If

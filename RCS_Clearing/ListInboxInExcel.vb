@@ -9,8 +9,7 @@ Public Class ListInboxInExcel
     Public Sub BuildExcelList()
         Const lastCol As String = "l"
         oExcel = GetExcel()
-        Dim oOutlook As Outlook.Application : oOutlook = GetOutlook()
-        Dim oNs As Outlook.NameSpace : oNs = oOutlook.GetNamespace("MAPI")
+        Dim oNs As Outlook.NameSpace : oNs = ThisAddIn.appOutlook.GetNamespace("MAPI")
         Dim oFldr As Outlook.MAPIFolder : oFldr = oNs.GetDefaultFolder(OlDefaultFolders.olFolderInbox)
         Dim oMessage As Object
         Dim r As Integer : r = 2
@@ -109,13 +108,13 @@ Public Class ListInboxInExcel
                             writeToExcel("g" & r, "'-", oExcel)
                         Case Else
                             writeToExcel("e" & r, .To, oExcel)
-                            If .To = oOutlook.Application.Session.CurrentUser.Name Then
+                            If .To = ThisAddIn.appOutlook.Application.Session.CurrentUser.Name Then
                                 writeToExcel("f" & r, "Yes", oExcel)
                             Else
                                 writeToExcel("f" & r, "'-", oExcel)
                             End If
 
-                            If .CC Like "*" & oOutlook.Application.Session.CurrentUser.Name & "*" And Not .To Like "*" & oOutlook.Application.Session.CurrentUser.Name & "*" Then
+                            If .CC Like "*" & ThisAddIn.appOutlook.Application.Session.CurrentUser.Name & "*" And Not .To Like "*" & ThisAddIn.appOutlook.Application.Session.CurrentUser.Name & "*" Then
                                 writeToExcel("g" & r, "Yes", oExcel)
                             Else
                                 writeToExcel("g" & r, "'-", oExcel)
@@ -194,7 +193,6 @@ Public Class ListInboxInExcel
         oMessage = Nothing
         oFldr = Nothing
         oNs = Nothing
-        oOutlook = Nothing
         oExcel = Nothing
 
     End Sub
