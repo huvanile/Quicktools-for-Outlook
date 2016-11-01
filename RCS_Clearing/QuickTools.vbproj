@@ -220,7 +220,6 @@
     <Compile Include="Helpers\ExcelHelpers.vb" />
     <Compile Include="Helpers\ImgurHelpers.vb" />
     <Compile Include="Helpers\RegistryHelpers.vb" />
-    <Compile Include="Helpers\StegHelpers.vb" />
     <Compile Include="ListInboxInExcel.vb" />
     <Compile Include="rcs.vb" />
     <Compile Include="Ribbons\Ribbon1.Designer.vb">
@@ -235,10 +234,22 @@
     <Compile Include="Ribbons\RibbonNewMessage.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Ribbons\RibbonReceivedMail.Designer.vb">
+      <DependentUpon>RibbonReceivedMail.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Ribbons\RibbonReceivedMail.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Taskpanes\tpnStegSteg.Designer.vb">
       <DependentUpon>tpnStegSteg.vb</DependentUpon>
     </Compile>
     <Compile Include="Taskpanes\tpnStegSteg.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Taskpanes\tpnStegUnsteg.Designer.vb">
+      <DependentUpon>tpnStegUnsteg.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Taskpanes\tpnStegUnsteg.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ThisAddIn.vb">
@@ -256,11 +267,17 @@
     <EmbeddedResource Include="Ribbons\RibbonNewMessage.resx">
       <DependentUpon>RibbonNewMessage.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Ribbons\RibbonReceivedMail.resx">
+      <DependentUpon>RibbonReceivedMail.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Taskpanes\tpnRCSStart.resx">
       <DependentUpon>tpnRCSStart.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Taskpanes\tpnStegSteg.resx">
       <DependentUpon>tpnStegSteg.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Taskpanes\tpnStegUnsteg.resx">
+      <DependentUpon>tpnStegUnsteg.vb</DependentUpon>
     </EmbeddedResource>
     <None Include="QuickTools_TemporaryKey.pfx" />
     <None Include="RCS_Clearing_TemporaryKey.pfx" />

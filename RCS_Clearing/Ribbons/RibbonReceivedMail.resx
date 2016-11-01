@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="btnStegEmail.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="btnRecoverSteg.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAABGAAAARgCAYAAACmDiCpAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAACw0AAAsNAe0HwCwAAAAGYktHRAD/AP8A/6C9p5MAAAAHdElNRQfdChMKKDQbFppI
+        YQUAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAAGYktHRAD/AP8A/6C9p5MAAAAHdElNRQfdChMKKDQbFppI
         AAD/gElEQVR4Xuz9+49d1Z3v/VpFd8esSmK7216VhITLA+QCQQ7mZm42Mg43h/gEh2wCzTZJcNtpiM0D
         BJoQh3sCaRp743b8GIyhodmw2eygHLTR0xGtOpFohZ0WjUQrOpFaOvwJ0fOc30+d+lStRV38qap1mZfv
         mOP9lV67d3BdVs0515xjfNcY3+8ygiAIgiCIUmPVshXLVi/fmCS9doIgCIIgCIIgCIIgiMKim3QYa20d

@@ -3,6 +3,7 @@ Imports Microsoft.Office.Interop.Outlook
 Imports Quicktools.EmailHelpers
 Imports Quicktools.ExcelHelpers
 Imports Quicktools.RegistryHelpers
+Imports System.IO
 
 Public Class Ribbon1
     Dim ribbon As Microsoft.Office.Core.IRibbonUI
@@ -126,12 +127,24 @@ Public Class Ribbon1
     End Sub
 
     Private Sub Ribbon1_Load(sender As Object, e As RibbonUIEventArgs) Handles MyBase.Load
+        'set prefs
         xboxVIP1.Text = GetSetting("Preferences", "vip1")
         ThisAddIn.Vip1 = GetSetting("Preferences", "vip1")
         xboxVIP2.Text = GetSetting("Preferences", "vip2")
         ThisAddIn.Vip2 = GetSetting("Preferences", "vip2")
         xboxVIP3.Text = GetSetting("Preferences", "vip3")
         ThisAddIn.Vip3 = GetSetting("Preferences", "vip3")
+
+        'folder and file work
+        Dim dlLocation As String = Environment.GetFolderPath(Environment.SpecialFolder.InternetCache) & "\OutlookQuickTools\"
+        If Not Directory.Exists(dlLocation) Then MkDir(dlLocation)
+        Dim files() As String
+        files = Directory.GetFileSystemEntries(dlLocation)
+        For Each element As String In files
+            If (Not Directory.Exists(element)) Then
+                File.Delete(Path.Combine(dlLocation, Path.GetFileName(element)))
+            End If
+        Next
     End Sub
 
     Private Sub btnVIP3_Click(sender As Object, e As RibbonControlEventArgs) Handles btnVIP3.Click
@@ -139,6 +152,7 @@ Public Class Ribbon1
             Dim found As Boolean : found = False
             Dim oNs As Outlook.NameSpace : oNs = ThisAddIn.appOutlook.GetNamespace("MAPI")
             Dim oFldr As Outlook.MAPIFolder : oFldr = oNs.GetDefaultFolder(OlDefaultFolders.olFolderInbox)
+
             Dim oMessage As Object
             For Each oMessage In oFldr.Items
                 If oMessage.MessageClass = "IPM.Note" And LCase(oMessage.SenderName) Like "*" & LCase(ThisAddIn.Vip3) & "*" Then

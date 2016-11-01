@@ -4,6 +4,7 @@ Imports System.Drawing
 
 Public Class ImgurHelpers
     Public Function GetRandomImg() As String
+tryagain:
         Dim client As New WebClient()
         Dim rndimg As String = ""
         Dim downloadString As String = client.DownloadString("http://imgur.com/")
@@ -18,6 +19,10 @@ Public Class ImgurHelpers
             rndimg = Replace(regex.Matches(input)(rInt).ToString, "b.jpg", ".gif")
         Loop
         If Not LCase(rndimg) Like "*http://*" Then rndimg = "http://" & rndimg
+        If rndimg = "http://imgur.com" Then GoTo tryagain
+        client = Nothing
+        regex = Nothing
+        r = Nothing
         Return rndimg
     End Function
 
@@ -28,5 +33,7 @@ Public Class ImgurHelpers
         Dim stream As New IO.MemoryStream(bytes)
         If saveFile Then My.Computer.FileSystem.WriteAllBytes(location & saveName, bytes, False)
         Return New System.Drawing.Bitmap(stream)
+        stream = Nothing
+        webClient = Nothing
     End Function
 End Class

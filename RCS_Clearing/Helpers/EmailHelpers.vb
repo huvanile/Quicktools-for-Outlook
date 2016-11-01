@@ -8,10 +8,9 @@ Public Class EmailHelpers
     Public Shared Sub SwapAndSteg(mail As Outlook.MailItem, steggedImage As String)
         If Not String.IsNullOrEmpty(mail.HTMLBody) AndAlso mail.HTMLBody.ToLower().Contains("</body>") Then
             mail.Attachments.Add(steggedImage, OlAttachmentType.olEmbeddeditem)
-            mail.Body = "Hey I thought you'd get a kick out of this pic, check it out"
+            mail.Body = "Hey, check out the attached pic"
             mail.Save()
         End If
-
     End Sub
 
     Public Shared Property WIPEmailHTMLBody As String
@@ -20,6 +19,35 @@ Public Class EmailHelpers
             Return mail.HTMLBody
         End Get
         Set(value As String)
+
+        End Set
+    End Property
+
+    Public Shared Property SelectedEmailAttachedImages() As List(Of String)
+        Get
+            Dim tmp As New List(Of String)
+            If ThisAddIn.appOutlook.ActiveExplorer().Selection.Count > 0 Then
+                Dim selMail As Outlook.MailItem = ThisAddIn.appOutlook.ActiveExplorer().Selection(1)
+                Dim attachments As Outlook.Attachments = selMail.Attachments
+                If selMail.Attachments.Count > 0 Then
+                    Dim attachment As Outlook.Attachment
+                    For Each attachment In attachments
+                        If attachment.FileName Like "*jpg" _
+                        Or attachment.FileName Like "*bmp" _
+                        Or attachment.FileName Like "*gif" Then
+                            tmp.Add(attachment.FileName)
+                        End If
+                    Next
+                    If tmp.Count = 0 Then tmp.Add("Selected email has no images attached")
+                Else
+                        tmp.Add("Selected email has no images attached")
+                End If
+            Else
+                tmp.Add("Selected item is not an email")
+            End If
+            Return tmp
+        End Get
+        Set(value As List(Of String))
 
         End Set
     End Property

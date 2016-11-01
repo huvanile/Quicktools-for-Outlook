@@ -1,4 +1,4 @@
-﻿Partial Class RibbonNewMessage
+﻿Partial Class RibbonReceivedMail
     Inherits Microsoft.Office.Tools.Ribbon.RibbonBase
 
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -41,60 +41,59 @@
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(RibbonNewMessage))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(RibbonReceivedMail))
         Me.Tab1 = Me.Factory.CreateRibbonTab
-        Me.grpSteg = Me.Factory.CreateRibbonGroup
-        Me.btnStegEmail = Me.Factory.CreateRibbonButton
+        Me.Group1 = Me.Factory.CreateRibbonGroup
+        Me.btnRecoverSteg = Me.Factory.CreateRibbonButton
         Me.Tab1.SuspendLayout()
-        Me.grpSteg.SuspendLayout()
+        Me.Group1.SuspendLayout()
         Me.SuspendLayout()
         '
         'Tab1
         '
         Me.Tab1.ControlId.ControlIdType = Microsoft.Office.Tools.Ribbon.RibbonControlIdType.Office
-        Me.Tab1.ControlId.OfficeId = "TabNewMailMessage"
-        Me.Tab1.Groups.Add(Me.grpSteg)
-        Me.Tab1.Label = "TabNewMailMessage"
+        Me.Tab1.Groups.Add(Me.Group1)
+        Me.Tab1.Label = "TabAddIns"
         Me.Tab1.Name = "Tab1"
         '
-        'grpSteg
+        'Group1
         '
-        Me.grpSteg.Items.Add(Me.btnStegEmail)
-        Me.grpSteg.Label = "QuickTools"
-        Me.grpSteg.Name = "grpSteg"
+        Me.Group1.Items.Add(Me.btnRecoverSteg)
+        Me.Group1.Label = "QuickTools"
+        Me.Group1.Name = "Group1"
         '
-        'btnStegEmail
+        'btnRecoverSteg
         '
-        Me.btnStegEmail.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
-        Me.btnStegEmail.Image = CType(resources.GetObject("btnStegEmail.Image"), System.Drawing.Image)
-        Me.btnStegEmail.Label = "Hide email in image"
-        Me.btnStegEmail.Name = "btnStegEmail"
-        Me.btnStegEmail.ShowImage = True
+        Me.btnRecoverSteg.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
+        Me.btnRecoverSteg.Image = CType(resources.GetObject("btnRecoverSteg.Image"), System.Drawing.Image)
+        Me.btnRecoverSteg.Label = "Read message hidden in attached image"
+        Me.btnRecoverSteg.Name = "btnRecoverSteg"
+        Me.btnRecoverSteg.ShowImage = True
         '
-        'RibbonNewMessage
+        'RibbonReceivedMail
         '
-        Me.Name = "RibbonNewMessage"
-        Me.RibbonType = "Microsoft.Outlook.Mail.Compose"
+        Me.Name = "RibbonReceivedMail"
+        Me.RibbonType = "Microsoft.Outlook.Mail.Read, Microsoft.Outlook.Response.Read"
         Me.Tabs.Add(Me.Tab1)
         Me.Tab1.ResumeLayout(False)
         Me.Tab1.PerformLayout()
-        Me.grpSteg.ResumeLayout(False)
-        Me.grpSteg.PerformLayout()
+        Me.Group1.ResumeLayout(False)
+        Me.Group1.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
 
     Friend WithEvents Tab1 As Microsoft.Office.Tools.Ribbon.RibbonTab
-    Friend WithEvents grpSteg As Microsoft.Office.Tools.Ribbon.RibbonGroup
-    Friend WithEvents btnStegEmail As Microsoft.Office.Tools.Ribbon.RibbonButton
+    Friend WithEvents Group1 As Microsoft.Office.Tools.Ribbon.RibbonGroup
+    Friend WithEvents btnRecoverSteg As Microsoft.Office.Tools.Ribbon.RibbonButton
 End Class
 
 Partial Class ThisRibbonCollection
 
     <System.Diagnostics.DebuggerNonUserCode()> _
-    Friend ReadOnly Property RibbonNewMessage() As RibbonNewMessage
+    Friend ReadOnly Property RibbonReceivedMail() As RibbonReceivedMail
         Get
-            Return Me.GetRibbon(Of RibbonNewMessage)()
+            Return Me.GetRibbon(Of RibbonReceivedMail)()
         End Get
     End Property
 End Class
