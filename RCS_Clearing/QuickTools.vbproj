@@ -39,16 +39,16 @@
     <PublishUrl>L:\eTools\rcsOutlook\current\</PublishUrl>
     <InstallUrl>\\dal-fs-001\bas%24\eTools\rcsOutlook\current\</InstallUrl>
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>1.0.0.2</ApplicationVersion>
+    <ApplicationVersion>1.0.0.3</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>days</UpdateIntervalUnits>
-    <ProductName>RCS_Clearing</ProductName>
-    <PublisherName />
+    <ProductName>Quicktools for Outlook</ProductName>
+    <PublisherName>Jeremy Huval</PublisherName>
     <SupportUrl />
-    <FriendlyName>RCS_Clearing</FriendlyName>
-    <OfficeApplicationDescription />
+    <FriendlyName>Quicktools for Outlook</FriendlyName>
+    <OfficeApplicationDescription>Tools for using Outlook with the quickness</OfficeApplicationDescription>
     <LoadBehavior>3</LoadBehavior>
   </PropertyGroup>
   <ItemGroup>

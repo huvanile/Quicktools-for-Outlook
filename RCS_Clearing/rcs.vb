@@ -152,7 +152,12 @@ loadFirstPage:
             Exit Sub
         End If
         i += 1
-        updateLblStatusSafe("Clearing check " & i & " of " & checkCount)
+        If Not i > checkCount Then
+            updateLblStatusSafe("Clearing check " & i & " of " & checkCount)
+        Else
+            updateLblStatusSafe("Clearing check " & checkCount & " of " & checkCount)
+        End If
+
 
         waitForPageLoad()
         checkForConflictsOrExit() : If Not ThisAddIn.Proceed Then Exit Sub
