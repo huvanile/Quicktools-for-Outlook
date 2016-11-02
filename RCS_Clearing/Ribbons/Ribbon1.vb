@@ -23,7 +23,7 @@ Public Class Ribbon1
         Dim sBuilder As New StringBuilder
         sBuilder.Append("<p>Hi,</p>").AppendLine()
         sBuilder.Append("<p>I thought you'd be interested in using an Outlook add-in called the ""QuickTools for Outlook"" that I find useful. I use it to save time in Outlook.</p>").AppendLine()
-        sBuilder.Append("<p>To install it, simply run <a href='\\dal-fs-001\bas$\eTools\rcsOutlook\current\setup.exe'>this installer</a> while on the GT network (i.e., on VPN or at the office). Note that the installer takes a moment to appear after you double-click on it.</p>").AppendLine()
+        sBuilder.Append("<p>To install it, simply run <a href='\\dal-fs-001\bas$\eTools\rcsOutlook\current\setup.exe'>this installer</a> while on the GT network (i.e., on VPN or at the office). Be sure to hit ""Open"" and not ""Save"" at the prompt. Note that the installer takes a moment to appear after you double-click on it.</p>").AppendLine()
         sBuilder.Append("<p>Regards,</p>").AppendLine()
         BuildEmail("Check out this Outlook Add-in", sBuilder)
         sBuilder = Nothing
