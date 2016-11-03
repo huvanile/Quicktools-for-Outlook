@@ -73,7 +73,8 @@
         'RibbonReceivedMail
         '
         Me.Name = "RibbonReceivedMail"
-        Me.RibbonType = "Microsoft.Outlook.Mail.Read, Microsoft.Outlook.Response.Read"
+        Me.RibbonType = "Microsoft.Outlook.Explorer, Microsoft.Outlook.Mail.Read, Microsoft.Outlook.Post.R" &
+    "ead, Microsoft.Outlook.Response.Read"
         Me.Tabs.Add(Me.Tab1)
         Me.Tab1.ResumeLayout(False)
         Me.Tab1.PerformLayout()

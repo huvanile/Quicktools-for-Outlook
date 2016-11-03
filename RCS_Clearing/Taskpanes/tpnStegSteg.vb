@@ -1,6 +1,7 @@
 ﻿Imports System.Threading
 Imports System.Drawing
 Imports System.IO
+Imports System.Text.RegularExpressions
 
 Public Class tpnStegSteg
     Dim t1 As Thread
@@ -45,36 +46,45 @@ Public Class tpnStegSteg
     End Sub
 #End Region
 
-    Private Sub BecomeSteggedImage(picFileStream As System.IO.FileStream, picBuffer As System.IO.FileInfo, theMailItem As Outlook.MailItem)
-        Dim PicBytes As Long = picFileStream.Length
-        Dim PicExt As String = picBuffer.Extension
-        Dim tmpFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.InternetCache) & "\OutlookQuickTools\"
-        Dim PicByteArray(PicBytes) As Byte
-        picFileStream.Read(PicByteArray, 0, PicBytes)
-        Dim SentinelString() As Byte = {73, 116, 83, 116, 97, 114, 116, 115, 72, 101, 114, 101}
+    Private Function BecomeSteggedImage(picFileStream As System.IO.FileStream, picBuffer As System.IO.FileInfo, theMailItem As Outlook.MailItem) As Boolean
+        Try
+            Dim theBody As String = theMailItem.Body
+            theBody = theBody.Replace("'", "")
+            theBody = theBody.Replace("""", "")
+            theBody = theBody.Replace("…", "")
+            Dim PicBytes As Long = picFileStream.Length
+            Dim PicExt As String = picBuffer.Extension
+            Dim tmpFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.InternetCache) & "\OutlookQuickTools\"
+            Dim PicByteArray(PicBytes) As Byte
+            picFileStream.Read(PicByteArray, 0, PicBytes)
+            Dim SentinelString() As Byte = {73, 116, 83, 116, 97, 114, 116, 115, 72, 101, 114, 101}
 
-        Dim PlainTextByteArray(theMailItem.Body.Length) As Byte
-        For i As Integer = 0 To (theMailItem.Body.Length - 1)
-            PlainTextByteArray(i) = CByte(AscW(theMailItem.Body.Chars(i)))
-            Diagnostics.Debug.Print(i & " of " & (theMailItem.Body.Length - 1))
-        Next
-        Dim PicAndText(PicBytes + theMailItem.Body.Length + SentinelString.Length) As Byte
-        For t As Long = 0 To (PicBytes - 1)
-            PicAndText(t) = PicByteArray(t)
-        Next
-        Dim count As Integer = 0
-        For r As Long = PicBytes To (PicBytes + (SentinelString.Length) - 1)
-            PicAndText(r) = SentinelString(count)
-            count += 1
-        Next
-        count = 0
-        For q As Long = (PicBytes + SentinelString.Length) To (PicBytes + SentinelString.Length + theMailItem.Body.Length - 1)
-            PicAndText(q) = PlainTextByteArray(count)
-            count += 1
-        Next
-        My.Computer.FileSystem.WriteAllBytes(tmpFolder & "Copy of " & picBuffer.Name, PicAndText, False)
-        EmailHelpers.SwapAndSteg(theMailItem, tmpFolder & "Copy of " & picBuffer.Name)
-    End Sub
+            Dim PlainTextByteArray(theBody.Length) As Byte
+            For i As Integer = 0 To (theBody.Length - 1)
+                PlainTextByteArray(i) = CByte(AscW(theBody.Chars(i)))
+                Diagnostics.Debug.Print(i & " of " & (theBody.Length - 1))
+            Next
+            Dim PicAndText(PicBytes + theBody.Length + SentinelString.Length) As Byte
+            For t As Long = 0 To (PicBytes - 1)
+                PicAndText(t) = PicByteArray(t)
+            Next
+            Dim count As Integer = 0
+            For r As Long = PicBytes To (PicBytes + (SentinelString.Length) - 1)
+                PicAndText(r) = SentinelString(count)
+                count += 1
+            Next
+            count = 0
+            For q As Long = (PicBytes + SentinelString.Length) To (PicBytes + SentinelString.Length + theBody.Length - 1)
+                PicAndText(q) = PlainTextByteArray(count)
+                count += 1
+            Next
+            My.Computer.FileSystem.WriteAllBytes(tmpFolder & "Copy of " & picBuffer.Name, PicAndText, False)
+            EmailHelpers.SwapAndSteg(theMailItem, tmpFolder & "Copy of " & picBuffer.Name)
+            Return True
+        Catch ex As Exception
+            Return False
+        End Try
+    End Function
 
     Private Sub btnFromFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFromFile.Click
         Dim openPic As New System.Windows.Forms.OpenFileDialog
@@ -124,7 +134,11 @@ Public Class tpnStegSteg
             updateTxtFilenameSafe("Please load a picture before clicking proceed")
         End Try
         If Ready = True Then
-            BecomeSteggedImage(PicFileStream, PicBuffer, ThisAddIn.appOutlook.ActiveInspector.CurrentItem)
+            If BecomeSteggedImage(PicFileStream, PicBuffer, ThisAddIn.appOutlook.ActiveInspector.CurrentItem) = True Then
+                updateTxtFilenameSafe("Success! You can now send your email!")
+            Else
+                updateTxtFilenameSafe("An error occurred. Maybe try a different image?")
+            End If
         End If
     End Sub
 

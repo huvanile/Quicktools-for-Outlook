@@ -8,7 +8,8 @@ Public Class EmailHelpers
     Public Shared Sub SwapAndSteg(mail As Outlook.MailItem, steggedImage As String)
         If Not String.IsNullOrEmpty(mail.HTMLBody) AndAlso mail.HTMLBody.ToLower().Contains("</body>") Then
             mail.Attachments.Add(steggedImage, OlAttachmentType.olEmbeddeditem)
-            mail.Body = "Hey, check out the attached pic"
+            If mail.Subject = "" Then mail.Subject = "See attached pic"
+            mail.Body = "Hey, please check out the attached pic."
             mail.Save()
         End If
     End Sub
