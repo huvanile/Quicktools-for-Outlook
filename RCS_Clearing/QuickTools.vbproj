@@ -39,16 +39,16 @@
     <PublishUrl>L:\eTools\rcsOutlook\current\</PublishUrl>
     <InstallUrl>\\dal-fs-001\bas%24\eTools\rcsOutlook\current\</InstallUrl>
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>1.0.0.1</ApplicationVersion>
+    <ApplicationVersion>1.0.0.4</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>days</UpdateIntervalUnits>
-    <ProductName>RCS_Clearing</ProductName>
-    <PublisherName />
+    <ProductName>Quicktools for Outlook</ProductName>
+    <PublisherName>Jeremy Huval</PublisherName>
     <SupportUrl />
-    <FriendlyName>RCS_Clearing</FriendlyName>
-    <OfficeApplicationDescription />
+    <FriendlyName>Quicktools for Outlook</FriendlyName>
+    <OfficeApplicationDescription>Tools for using Outlook with the quickness</OfficeApplicationDescription>
     <LoadBehavior>3</LoadBehavior>
   </PropertyGroup>
   <ItemGroup>
@@ -151,6 +151,9 @@
   -->
   <ItemGroup>
     <Reference Include="Accessibility" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -190,6 +193,7 @@
   </ItemGroup>
   <!-- Visual Basic supports importing namespaces (equivalent to "using" statements in C#). -->
   <ItemGroup>
+    <Import Include="Microsoft.Office.Tools.Excel" />
     <Import Include="Microsoft.VisualBasic" />
     <Import Include="System" />
     <Import Include="System.Collections.Generic" />
@@ -213,12 +217,40 @@
     <AppDesigner Include="My Project\" />
     <Compile Include="Helpers\browserHelpers.vb" />
     <Compile Include="Helpers\EmailHelpers.vb" />
+    <Compile Include="Helpers\ExcelHelpers.vb" />
+    <Compile Include="Helpers\ImgurHelpers.vb" />
+    <Compile Include="Helpers\RegistryHelpers.vb" />
+    <Compile Include="ListInboxInExcel.vb" />
     <Compile Include="rcs.vb" />
-    <Compile Include="Ribbon1.Designer.vb">
+    <Compile Include="Ribbons\Ribbon1.Designer.vb">
       <DependentUpon>Ribbon1.vb</DependentUpon>
     </Compile>
-    <Compile Include="Ribbon1.vb">
+    <Compile Include="Ribbons\Ribbon1.vb">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Ribbons\RibbonNewMessage.Designer.vb">
+      <DependentUpon>RibbonNewMessage.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Ribbons\RibbonNewMessage.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Ribbons\RibbonReceivedMail.Designer.vb">
+      <DependentUpon>RibbonReceivedMail.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Ribbons\RibbonReceivedMail.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Taskpanes\tpnStegSteg.Designer.vb">
+      <DependentUpon>tpnStegSteg.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Taskpanes\tpnStegSteg.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Taskpanes\tpnStegUnsteg.Designer.vb">
+      <DependentUpon>tpnStegUnsteg.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Taskpanes\tpnStegUnsteg.vb">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ThisAddIn.vb">
       <SubType>Code</SubType>
@@ -229,13 +261,19 @@
     <Compile Include="Taskpanes\tpnRCSStart.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <EmbeddedResource Include="Ribbon1.resx">
+    <EmbeddedResource Include="Ribbons\Ribbon1.resx">
       <DependentUpon>Ribbon1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ribbons\RibbonNewMessage.resx">
+      <DependentUpon>RibbonNewMessage.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ribbons\RibbonReceivedMail.resx">
+      <DependentUpon>RibbonReceivedMail.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Taskpanes\tpnRCSStart.resx">
       <DependentUpon>tpnRCSStart.vb</DependentUpon>
     </EmbeddedResource>
-    <None Include="QuickTools_TemporaryKey.pfx" />
+    <None Include="RCS_Clearing_TemporaryKey.pfx" />
     <None Include="ThisAddIn.Designer.xml">
       <DependentUpon>ThisAddIn.vb</DependentUpon>
     </None>
@@ -296,7 +334,7 @@
     <ManifestKeyFile>QuickTools_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>4A20C1A73DA3C3615FDC68773A2CD8723796AE6B</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>7D39A7EEB73059CF6437D8B9F16AA8D664DFF713</ManifestCertificateThumbprint>
   </PropertyGroup>
   <!-- Include the build rules for a Visual Basic project. -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

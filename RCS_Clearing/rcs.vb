@@ -1,4 +1,5 @@
-﻿Imports Quicktools.browserHelpers
+﻿Imports System.Drawing
+Imports Quicktools.browserHelpers
 
 Public Class rcs
 
@@ -12,6 +13,101 @@ Public Class rcs
     Dim checkCount As Integer = 0       ' total of all checks available to be cleared
     Public inProgress As Boolean
 
+#Region "Thread-safe GUI Updaters"
+    Public Delegate Sub setTextSafeCallback([theText] As String)
+    Public Delegate Sub disableControlSafeCallback([theName] As String)
+    Public Delegate Sub enableControlSafeCallback([theName] As String)
+
+    Public Sub enableControlSafe([theName] As String)
+        Try
+            If Not IsNothing(Ribbon1.taskpaneRCSStart.Controls(theName)) Then
+                If Ribbon1.taskpaneRCSStart.Controls(theName).InvokeRequired Then
+                    Dim d As New enableControlSafeCallback(AddressOf enableControlSafe)
+                    Ribbon1.taskpaneRCSStart.Invoke(d, New Object() {[theName]})
+                    d = Nothing
+                Else
+                    With Ribbon1.taskpaneRCSStart.Controls(theName)
+                        If .Enabled <> True Then .Enabled = True
+                        If .Visible <> True Then .Visible = True
+                        .Refresh()
+                    End With
+                End If
+            End If
+        Catch exAll As Exception : End Try
+    End Sub
+
+    Public Sub disableControlSafe([theName] As String)
+        Try
+            If Not IsNothing(Ribbon1.taskpaneRCSStart.Controls(theName)) Then
+                If Ribbon1.taskpaneRCSStart.Controls(theName).InvokeRequired Then
+                    Dim d As New disableControlSafeCallback(AddressOf disableControlSafe)
+                    Ribbon1.taskpaneRCSStart.Invoke(d, New Object() {[theName]})
+                    d = Nothing
+                Else
+                    With Ribbon1.taskpaneRCSStart.Controls(theName)
+                        If .Enabled <> False Then .Enabled = False
+                        .BackColor = Color.Transparent
+                        .Refresh()
+                    End With
+                End If
+            End If
+        Catch exAll As Exception : End Try
+    End Sub
+
+    Public Sub updateTxtEntitiesSafe(theText As String)
+        Try
+            With Ribbon1.taskpaneRCSStart.txtEntities
+                If .InvokeRequired Then
+                    Dim d As New setTextSafeCallback(AddressOf updateTxtEntitiesSafe)
+                    Ribbon1.taskpaneRCSStart.Invoke(d, New Object() {[theText]})
+                    d = Nothing
+                Else
+                    .Visible = True
+                    .Text = theText
+                    .Refresh()
+                    .Invalidate()
+                End If
+            End With
+        Catch exAll As Exception : End Try
+
+    End Sub
+
+    Public Sub updateLblQuestionSafe(theText As String)
+        Try
+            With Ribbon1.taskpaneRCSStart.lblQuestion
+                If .InvokeRequired Then
+                    Dim d As New setTextSafeCallback(AddressOf updateLblQuestionSafe)
+                    Ribbon1.taskpaneRCSStart.Invoke(d, New Object() {[theText]})
+                    d = Nothing
+                Else
+                    .Text = theText
+                    .Refresh()
+                    .Invalidate()
+                End If
+            End With
+        Catch exAll As Exception : End Try
+
+    End Sub
+
+    Public Sub updateLblStatusSafe(theText As String)
+        Try
+            With Ribbon1.taskpaneRCSStart.lblStatus
+                If .InvokeRequired Then
+                    Dim d As New setTextSafeCallback(AddressOf updateLblStatusSafe)
+                    Ribbon1.taskpaneRCSStart.Invoke(d, New Object() {[theText]})
+                    d = Nothing
+                Else
+                    .Text = theText
+                    .Refresh()
+                    .Invalidate()
+                End If
+            End With
+        Catch exAll As Exception : End Try
+
+    End Sub
+
+#End Region
+
     'factory sub which does the guts of this ribbon
     Public Sub startRCSClearing()
 
@@ -21,14 +117,14 @@ Public Class rcs
         'appIE.Visible = True
 
         'load site
-        Ribbon1.taskpaneRCSStart.lblStatus.Text = "Opening RCS Site in IE"
+        updateLblStatusSafe("Opening RCS Site in IE")
         appIE.navigate(sURL)
 
         'check for checks needing a response
-        Ribbon1.taskpaneRCSStart.lblStatus.Text = "Looking for open checks"
+        updateLblStatusSafe("Looking for open checks")
         waitForPageLoad()
-        checkForConflictsOrExit() : If Not ThisAddIn.proceed Then Exit Sub
-        askUserIfWantToClear() : If Not ThisAddIn.proceed Then Exit Sub
+        checkForConflictsOrExit() : If Not ThisAddIn.Proceed Then Exit Sub
+        askUserIfWantToClear() : If Not ThisAddIn.Proceed Then Exit Sub
 
     End Sub
 
@@ -44,22 +140,27 @@ Public Class rcs
         Dim ElementCol As Object = Nothing  ' MSHTML.IHTMLElementCollection
         Dim i As Integer = 0               ' counter used for status bar incrementing
 
-        Ribbon1.taskpaneRCSStart.lblQuestion.Text = "Working..."
-        Ribbon1.taskpaneRCSStart.btnOK.Visible = False
-        Ribbon1.taskpaneRCSStart.btnCancel.Visible = False
+        updateLblQuestionSafe("Working...")
+        disableControlSafe("btnOK")
+        disableControlSafe("btnCancel")
 
         'go into the detail page for each conflict
 loadFirstPage:
 
         If checkCount = 0 Then
-            Ribbon1.taskpaneRCSStart.lblStatus.Text = "Something went wrong.  Check your connectivity to the GT network and try again."
+            updateLblStatusSafe("Something went wrong.  Check your connectivity to the GT network and try again.")
             Exit Sub
         End If
         i += 1
-        Ribbon1.taskpaneRCSStart.lblStatus.Text = "Clearing check " & i & " of " & checkCount
+        If Not i > checkCount Then
+            updateLblStatusSafe("Clearing check " & i & " of " & checkCount)
+        Else
+            updateLblStatusSafe("Clearing check " & checkCount & " of " & checkCount)
+        End If
+
 
         waitForPageLoad()
-        checkForConflictsOrExit() : If Not ThisAddIn.proceed Then Exit Sub
+        checkForConflictsOrExit() : If Not ThisAddIn.Proceed Then Exit Sub
         clicked = False
         attempts = 0
         Do Until clicked = True Or attempts > tryCount
@@ -78,8 +179,8 @@ loadFirstPage:
         'exit gracefully if needed
         If Not clicked Then
             appIE = Nothing
-            Ribbon1.taskpaneRCSStart.lblQuestion.Text = "Done!"
-            Ribbon1.taskpaneRCSStart.lblStatus.Text = clearCount & " checks cleared!"
+            updateLblQuestionSafe("Done!")
+            updateLblStatusSafe(clearCount & " checks cleared!")
             Exit Sub
         End If
 
@@ -113,16 +214,16 @@ loadSecondPage:
         For Each fontTag In ElementCol
             If fontTag.innerHTML Like "*There are no checks that require response*" Then
                 If clearCount > 0 Then
-                    Ribbon1.taskpaneRCSStart.lblQuestion.Text = "Done!"
-                    Ribbon1.taskpaneRCSStart.lblStatus.Text = clearCount & " checks cleared!"
+                    updateLblQuestionSafe("Done!")
+                    updateLblStatusSafe(clearCount & " checks cleared!")
                 Else
-                    Ribbon1.taskpaneRCSStart.lblStatus.Text = "There are no checks that require response"
-                    Ribbon1.taskpaneRCSStart.lblQuestion.Text = "No checks need clearing at this time"
-                    Ribbon1.taskpaneRCSStart.btnOK.Visible = True
+                    updateLblStatusSafe("There are no checks that require response")
+                    updateLblQuestionSafe("No checks need clearing at this time")
+                    enableControlSafe("btnOK")
                 End If
                 appIE.Quit()
                 appIE = Nothing
-                ThisAddIn.proceed = False
+                ThisAddIn.Proceed = False
                 Exit Sub
             End If
         Next fontTag
@@ -143,14 +244,11 @@ loadSecondPage:
             End If
         Next tData
         If checkCount > 0 Then
-            With Ribbon1.taskpaneRCSStart.txtEntities
-                .Text = checkList
-                .Visible = True
-            End With
-            Ribbon1.taskpaneRCSStart.lblQuestion.Text = "Clear the following relationship checks?"
-            Ribbon1.taskpaneRCSStart.btnCancel.Visible = True
-            Ribbon1.taskpaneRCSStart.btnOK.Visible = True
-            Ribbon1.taskpaneRCSStart.lblStatus.Text = "Pending relationship checks:"
+            updateTxtEntitiesSafe(checkList)
+            updateLblQuestionSafe("Clear the following relationship checks?")
+            enableControlSafe("btnCancel")
+            enableControlSafe("btnOK")
+            updateLblStatusSafe("Pending relationship checks:")
         Else
             checkForConflictsOrExit()
         End If
