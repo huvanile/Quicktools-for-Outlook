@@ -235,7 +235,7 @@
     <EmbeddedResource Include="Taskpanes\tpnRCSStart.resx">
       <DependentUpon>tpnRCSStart.vb</DependentUpon>
     </EmbeddedResource>
-    <None Include="RCS_Clearing_TemporaryKey.pfx" />
+    <None Include="QuickTools_TemporaryKey.pfx" />
     <None Include="ThisAddIn.Designer.xml">
       <DependentUpon>ThisAddIn.vb</DependentUpon>
     </None>
@@ -293,10 +293,10 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>RCS_Clearing_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>QuickTools_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>7D39A7EEB73059CF6437D8B9F16AA8D664DFF713</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>4A20C1A73DA3C3615FDC68773A2CD8723796AE6B</ManifestCertificateThumbprint>
   </PropertyGroup>
   <!-- Include the build rules for a Visual Basic project. -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
