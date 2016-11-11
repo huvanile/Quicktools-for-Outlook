@@ -33,7 +33,7 @@ Partial Class tpnRCSStart
         '
         Me.lblQuestion.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblQuestion.ForeColor = System.Drawing.Color.Black
-        Me.lblQuestion.Location = New System.Drawing.Point(14, 0)
+        Me.lblQuestion.Location = New System.Drawing.Point(56, 10)
         Me.lblQuestion.Name = "lblQuestion"
         Me.lblQuestion.Size = New System.Drawing.Size(196, 65)
         Me.lblQuestion.TabIndex = 8
@@ -44,7 +44,7 @@ Partial Class tpnRCSStart
         '
         Me.btnOK.BackColor = System.Drawing.SystemColors.Control
         Me.btnOK.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnOK.Location = New System.Drawing.Point(14, 68)
+        Me.btnOK.Location = New System.Drawing.Point(56, 78)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Size = New System.Drawing.Size(88, 33)
         Me.btnOK.TabIndex = 9
@@ -56,7 +56,7 @@ Partial Class tpnRCSStart
         Me.btnCancel.BackColor = System.Drawing.SystemColors.Control
         Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.btnCancel.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnCancel.Location = New System.Drawing.Point(119, 68)
+        Me.btnCancel.Location = New System.Drawing.Point(161, 78)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(88, 33)
         Me.btnCancel.TabIndex = 10
@@ -69,7 +69,7 @@ Partial Class tpnRCSStart
         Me.lblStatus.ForeColor = System.Drawing.Color.Blue
         Me.lblStatus.Location = New System.Drawing.Point(12, 116)
         Me.lblStatus.Name = "lblStatus"
-        Me.lblStatus.Size = New System.Drawing.Size(198, 27)
+        Me.lblStatus.Size = New System.Drawing.Size(268, 27)
         Me.lblStatus.TabIndex = 12
         Me.lblStatus.Text = "Status text"
         Me.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -80,7 +80,8 @@ Partial Class tpnRCSStart
         Me.txtEntities.Location = New System.Drawing.Point(14, 160)
         Me.txtEntities.Multiline = True
         Me.txtEntities.Name = "txtEntities"
-        Me.txtEntities.Size = New System.Drawing.Size(189, 221)
+        Me.txtEntities.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtEntities.Size = New System.Drawing.Size(266, 324)
         Me.txtEntities.TabIndex = 14
         '
         'tpnRCSStart
@@ -93,7 +94,7 @@ Partial Class tpnRCSStart
         Me.Controls.Add(Me.btnOK)
         Me.Controls.Add(Me.lblQuestion)
         Me.Name = "tpnRCSStart"
-        Me.Size = New System.Drawing.Size(219, 601)
+        Me.Size = New System.Drawing.Size(300, 600)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

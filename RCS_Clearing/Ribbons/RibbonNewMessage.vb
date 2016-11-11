@@ -3,6 +3,7 @@ Imports System.IO
 
 Public Class RibbonNewMessage
     Public Shared taskpaneStegSteg As tpnStegSteg : Public Shared ctpStegSteg As Microsoft.Office.Tools.CustomTaskPane
+    Public Shared taskpaneEncTools As tpnEncryptionTools : Public Shared ctpEncSteg As Microsoft.Office.Tools.CustomTaskPane
 
     Private Sub btnStegEmail_Click(sender As Object, e As RibbonControlEventArgs) Handles btnStegEmail.Click
         Dim dlLocation As String = Environment.GetFolderPath(Environment.SpecialFolder.InternetCache) & "\OutlookQuickTools\"
@@ -14,4 +15,12 @@ Public Class RibbonNewMessage
         ctpStegSteg.Visible = True
     End Sub
 
+    Private Sub btnEncryptEmail(sender As Object, e As RibbonControlEventArgs) Handles btnEncryptMessage.Click
+        taskpaneEncTools = New tpnEncryptionTools
+        ctpEncSteg = Globals.ThisAddIn.CustomTaskPanes.Add(taskpaneEncTools, "Email Encryption Tools")
+        ctpEncSteg.Width = 300
+        ctpEncSteg.Control.Width = 300
+        ctpEncSteg.DockPosition = Microsoft.Office.Core.MsoCTPDockPosition.msoCTPDockPositionRight
+        ctpEncSteg.Visible = True
+    End Sub
 End Class

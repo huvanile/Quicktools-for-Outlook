@@ -217,6 +217,7 @@
     <AppDesigner Include="My Project\" />
     <Compile Include="Helpers\browserHelpers.vb" />
     <Compile Include="Helpers\EmailHelpers.vb" />
+    <Compile Include="Helpers\EncryptionHelpers.vb" />
     <Compile Include="Helpers\ExcelHelpers.vb" />
     <Compile Include="Helpers\ImgurHelpers.vb" />
     <Compile Include="Helpers\RegistryHelpers.vb" />
@@ -239,6 +240,12 @@
     </Compile>
     <Compile Include="Ribbons\RibbonReceivedMail.vb">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Taskpanes\tpnEncryptionTools.Designer.vb">
+      <DependentUpon>tpnEncryptionTools.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Taskpanes\tpnEncryptionTools.vb">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Taskpanes\tpnStegSteg.Designer.vb">
       <DependentUpon>tpnStegSteg.vb</DependentUpon>
@@ -270,17 +277,14 @@
     <EmbeddedResource Include="Ribbons\RibbonReceivedMail.resx">
       <DependentUpon>RibbonReceivedMail.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Taskpanes\tpnEncryptionTools.resx">
+      <DependentUpon>tpnEncryptionTools.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Taskpanes\tpnRCSStart.resx">
       <DependentUpon>tpnRCSStart.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Taskpanes\tpnStegSteg.resx">
-      <DependentUpon>tpnStegSteg.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Taskpanes\tpnStegUnsteg.resx">
-      <DependentUpon>tpnStegUnsteg.vb</DependentUpon>
-    </EmbeddedResource>
+    <None Include="QuickTools_1_TemporaryKey.pfx" />
     <None Include="QuickTools_TemporaryKey.pfx" />
-    <None Include="RCS_Clearing_TemporaryKey.pfx" />
     <None Include="ThisAddIn.Designer.xml">
       <DependentUpon>ThisAddIn.vb</DependentUpon>
     </None>
@@ -335,13 +339,19 @@
     <OptionStrict>Off</OptionStrict>
   </PropertyGroup>
   <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>QuickTools_1_TemporaryKey.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestKeyFile>QuickTools_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>C0966712CEB04B106FA9F848A74CD3DC796BA980</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>031591A10733B5574443CE28AD707EBF7FC69207</ManifestCertificateThumbprint>
   </PropertyGroup>
   <!-- Include the build rules for a Visual Basic project. -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
