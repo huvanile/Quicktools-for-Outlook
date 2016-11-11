@@ -13,8 +13,8 @@ Public Class Ribbon1
     Private Sub btnRCSCheck_Click(sender As Object, e As RibbonControlEventArgs) Handles btnRCSCheck.Click
         taskpaneRCSStart = New tpnRCSStart
         ctpRCSStart = Globals.ThisAddIn.CustomTaskPanes.Add(taskpaneRCSStart, "QuickTools")
-        ctpRCSStart.Width = 250
-        ctpRCSStart.Control.Width = 250
+        ctpRCSStart.Width = 300
+        ctpRCSStart.Control.Width = 300
         ctpRCSStart.DockPosition = Microsoft.Office.Core.MsoCTPDockPosition.msoCTPDockPositionRight
         ctpRCSStart.Visible = True
     End Sub

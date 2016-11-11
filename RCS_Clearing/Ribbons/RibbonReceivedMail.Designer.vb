@@ -45,6 +45,7 @@
         Me.Tab1 = Me.Factory.CreateRibbonTab
         Me.Group1 = Me.Factory.CreateRibbonGroup
         Me.btnRecoverSteg = Me.Factory.CreateRibbonButton
+        Me.btnDecryptMessage = Me.Factory.CreateRibbonButton
         Me.Tab1.SuspendLayout()
         Me.Group1.SuspendLayout()
         Me.SuspendLayout()
@@ -59,6 +60,7 @@
         'Group1
         '
         Me.Group1.Items.Add(Me.btnRecoverSteg)
+        Me.Group1.Items.Add(Me.btnDecryptMessage)
         Me.Group1.Label = "QuickTools"
         Me.Group1.Name = "Group1"
         '
@@ -69,6 +71,14 @@
         Me.btnRecoverSteg.Label = "Read message hidden in attached image"
         Me.btnRecoverSteg.Name = "btnRecoverSteg"
         Me.btnRecoverSteg.ShowImage = True
+        '
+        'btnDecryptMessage
+        '
+        Me.btnDecryptMessage.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
+        Me.btnDecryptMessage.Image = CType(resources.GetObject("btnDecryptMessage.Image"), System.Drawing.Image)
+        Me.btnDecryptMessage.Label = "Decrypt Message"
+        Me.btnDecryptMessage.Name = "btnDecryptMessage"
+        Me.btnDecryptMessage.ShowImage = True
         '
         'RibbonReceivedMail
         '
@@ -87,6 +97,7 @@
     Friend WithEvents Tab1 As Microsoft.Office.Tools.Ribbon.RibbonTab
     Friend WithEvents Group1 As Microsoft.Office.Tools.Ribbon.RibbonGroup
     Friend WithEvents btnRecoverSteg As Microsoft.Office.Tools.Ribbon.RibbonButton
+    Friend WithEvents btnDecryptMessage As Microsoft.Office.Tools.Ribbon.RibbonButton
 End Class
 
 Partial Class ThisRibbonCollection
