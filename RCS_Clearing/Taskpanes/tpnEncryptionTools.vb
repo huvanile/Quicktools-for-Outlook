@@ -9,14 +9,14 @@ Public Class tpnEncryptionTools
         'Encryption Object
         Dim encryptionHelpers As EncryptionHelpers = New EncryptionHelpers
         Dim encryptedMessage As String = ""
-        Dim messageBody As String = mail.Body
+        Dim messageBody As String = removeEndLinebreak(mail.Body.Trim)
 
         'Perform the encryption
         If (rbSingleLine.Checked) Then
             'Perform the encryption with single cipher
             encryptedMessage = encryptionHelpers.StringToHex(encryptionHelpers.CryptRC4(messageBody, txtCipherText.Text))
         ElseIf (rbMultiline.Checked) Then
-            encryptedMessage = mail.Body
+            encryptedMessage = messageBody
             'Perform the encryption with multi line cipher
             For Each line As String In txtMultilineCipher.Text.Split(vbLf)
                 encryptedMessage = encryptionHelpers.StringToHex(encryptionHelpers.CryptRC4(encryptedMessage, line.Replace(vbCr, "").Replace(vbLf, "")))
@@ -37,18 +37,18 @@ Public Class tpnEncryptionTools
         'Encryption Object
         Dim encryptionHelpers As EncryptionHelpers = New EncryptionHelpers
         Dim decryptedMessage As String = ""
-        Dim messageBody As String = mail.Body
+        Dim messageBody As String = removeEndLinebreak(mail.Body.Trim)
 
-        'Perform the encryption
+        'Perform the decryption
         If (rbSingleLine.Checked) Then
-            'Perform the encryption with single cipher
+            'Perform the decryption with single cipher
             decryptedMessage = encryptionHelpers.CryptRC4(encryptionHelpers.HexToString(messageBody), txtCipherText.Text)
         ElseIf (rbMultiline.Checked) Then
-            decryptedMessage = mail.Body.Trim.Replace(vbCr, "").Replace(vbLf, "")
+            decryptedMessage = messageBody
             Dim cipherText As String
 
-            'Perform the encryption with multi line cipher
-            For Each line As String In txtMultilineCipher.Text.Split(vbLf)
+            'Perform the decryption with multi line cipher 
+            For Each line As String In txtMultilineCipher.Text.Split(vbLf).Reverse  'we move through the cipher in reverse
                 cipherText = line.Trim.Replace(vbCr, "").Replace(vbLf, "")
                 decryptedMessage = encryptionHelpers.CryptRC4(encryptionHelpers.HexToString(decryptedMessage), cipherText)
             Next
@@ -88,4 +88,13 @@ Public Class tpnEncryptionTools
 
 
     End Sub
+
+    Private Function removeEndLinebreak(myString As String) As String
+        If Len(myString) <> 0 Then
+            If myString.EndsWith(vbCrLf) Or myString.EndsWith(vbNewLine) Then
+                myString = myString.Substring(0, Len(myString) - 2)
+            End If
+        End If
+        Return myString
+    End Function
 End Class

@@ -22,6 +22,7 @@ Partial Class tpnEncryptionTools
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(tpnEncryptionTools))
         Me.btnDecrypt = New System.Windows.Forms.Button()
         Me.btnEncrypt = New System.Windows.Forms.Button()
         Me.lblQuestion = New System.Windows.Forms.Label()
@@ -32,6 +33,7 @@ Partial Class tpnEncryptionTools
         Me.rbSingleLine = New System.Windows.Forms.RadioButton()
         Me.rbMultiline = New System.Windows.Forms.RadioButton()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -118,7 +120,7 @@ Partial Class tpnEncryptionTools
         'rbMultiline
         '
         Me.rbMultiline.AutoSize = True
-        Me.rbMultiline.Location = New System.Drawing.Point(135, 21)
+        Me.rbMultiline.Location = New System.Drawing.Point(127, 21)
         Me.rbMultiline.Name = "rbMultiline"
         Me.rbMultiline.Size = New System.Drawing.Size(96, 17)
         Me.rbMultiline.TabIndex = 19
@@ -136,10 +138,19 @@ Partial Class tpnEncryptionTools
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Cipher Type"
         '
+        'Label1
+        '
+        Me.Label1.Location = New System.Drawing.Point(9, 386)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(269, 123)
+        Me.Label1.TabIndex = 21
+        Me.Label1.Text = resources.GetString("Label1.Text")
+        '
         'tpnEncryptionTools
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.lblMultilineCipher)
         Me.Controls.Add(Me.txtMultilineCipher)
@@ -167,4 +178,5 @@ Partial Class tpnEncryptionTools
     Friend WithEvents rbSingleLine As Windows.Forms.RadioButton
     Friend WithEvents rbMultiline As Windows.Forms.RadioButton
     Friend WithEvents GroupBox1 As Windows.Forms.GroupBox
+    Friend WithEvents Label1 As Windows.Forms.Label
 End Class
