@@ -63,7 +63,7 @@
         Return answer
     End Function
 
-    Function HexToString(ByVal hex As String) As String
+    Shared Function HexToString(ByVal hex As String) As String
         Dim text As New StringBuilder(hex.Length \ 2)
         For i As Integer = 0 To hex.Length - 2 Step 2
             text.Append(Chr(Convert.ToByte(hex.Substring(i, 2), 16)))
@@ -71,7 +71,7 @@
         Return text.ToString
     End Function
 
-    Function StringToHex(ByVal text As String) As String
+    Shared Function StringToHex(ByVal text As String) As String
         Dim hex As New StringBuilder()
         For i As Integer = 0 To text.Length - 1
             hex.Append(Right(("0" & Asc(text.Substring(i, 1)).ToString("x").ToUpper), 2))

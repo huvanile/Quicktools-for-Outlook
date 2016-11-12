@@ -1,5 +1,4 @@
-﻿Imports System.Threading
-Imports System.Drawing
+﻿Imports Quicktools.EncryptionHelpers
 Imports Quicktools.EmailHelpers
 Imports System.IO
 
@@ -92,14 +91,17 @@ Public Class tpnStegUnsteg
                 Do While (leftCounter < PicBytes)
                     'Bytes need to be converted to an integer 
                     'then to an unicode character which will be the plaintext
-                    updateTxtRecoveredTextSafe(txtRecoveredText.Text & ChrW(CInt(PicByteArray(leftCounter))))
-                    leftCounter += 1
+                    updateTxtRecoveredTextSafe(txtRecoveredText.Text & HexToString(ChrW(CInt(PicByteArray(leftCounter))) & ChrW(CInt(PicByteArray(leftCounter + 1)))))
+                    updateTxtRecoveredTextSafe(txtRecoveredText.Text.Replace("Ú", vbCrLf))
+                    leftCounter += 2
                 Loop
             Else
                 updateTxtRecoveredTextSafe("The Picture does not contain any text")
             End If
         Catch ex As Exception
-            updateTxtRecoveredTextSafe("The picture does not contain any text and/or the tool was not able to read it")
+            If Not ex.Message = "Could not find any recognizable digits." Then
+                updateTxtRecoveredTextSafe("The picture does not contain any text and/or the tool was not able to read it")
+            End If
         End Try
     End Sub
 

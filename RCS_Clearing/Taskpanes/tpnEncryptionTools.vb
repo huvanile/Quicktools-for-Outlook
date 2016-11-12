@@ -1,29 +1,29 @@
 ﻿Imports System.Diagnostics
 
 Public Class tpnEncryptionTools
+
+    'Get the current email text to encrypt
+    Dim mail As Outlook.MailItem
+    Dim encryptionHelpers As EncryptionHelpers
+    Dim messageBody As String
+
     Private Sub btnEncrypt_Click(sender As Object, e As EventArgs) Handles btnEncrypt.Click
 
-        'Get the current email text to encrypt
-        Dim mail As Outlook.MailItem = ThisAddIn.appOutlook.ActiveInspector.CurrentItem
-
         'Encryption Object
-        Dim encryptionHelpers As EncryptionHelpers = New EncryptionHelpers
         Dim encryptedMessage As String = ""
-        Dim messageBody As String = removeEndLinebreak(mail.Body.Trim)
+        messageBody = removeEndLinebreak(mail.Body.Trim)
 
         'Perform the encryption
         If (rbSingleLine.Checked) Then
             'Perform the encryption with single cipher
-            encryptedMessage = encryptionHelpers.StringToHex(encryptionHelpers.CryptRC4(messageBody, txtCipherText.Text))
+            encryptedMessage = EncryptionHelpers.StringToHex(encryptionHelpers.CryptRC4(messageBody, txtCipherText.Text))
         ElseIf (rbMultiline.Checked) Then
             encryptedMessage = messageBody
             'Perform the encryption with multi line cipher
             For Each line As String In txtMultilineCipher.Text.Split(vbLf)
-                encryptedMessage = encryptionHelpers.StringToHex(encryptionHelpers.CryptRC4(encryptedMessage, line.Replace(vbCr, "").Replace(vbLf, "")))
+                encryptedMessage = EncryptionHelpers.StringToHex(encryptionHelpers.CryptRC4(encryptedMessage, line.Replace(vbCr, "").Replace(vbLf, "")))
             Next
         End If
-
-        'Debug.WriteLine(encryptedMessage)
 
         'change the message body
         mail.Body = encryptedMessage
@@ -31,33 +31,35 @@ Public Class tpnEncryptionTools
     End Sub
 
     Private Sub btnDecrypt_Click(sender As Object, e As EventArgs) Handles btnDecrypt.Click
-        'Get the current email text to encrypt
-        Dim mail As Outlook.MailItem = ThisAddIn.appOutlook.ActiveInspector.CurrentItem
+        messageBody = removeEndLinebreak(mail.Body.Trim)
+        decryptBody()
+    End Sub
+
+    Private Sub decryptBody()
 
         'Encryption Object
-        Dim encryptionHelpers As EncryptionHelpers = New EncryptionHelpers
         Dim decryptedMessage As String = ""
-        Dim messageBody As String = removeEndLinebreak(mail.Body.Trim)
 
         'Perform the decryption
         If (rbSingleLine.Checked) Then
             'Perform the decryption with single cipher
-            decryptedMessage = encryptionHelpers.CryptRC4(encryptionHelpers.HexToString(messageBody), txtCipherText.Text)
+            decryptedMessage = encryptionHelpers.CryptRC4(EncryptionHelpers.HexToString(messageBody), txtCipherText.Text)
         ElseIf (rbMultiline.Checked) Then
             decryptedMessage = messageBody
             Dim cipherText As String
 
             'Perform the decryption with multi line cipher 
             For Each line As String In txtMultilineCipher.Text.Split(vbLf).Reverse  'we move through the cipher in reverse
-                cipherText = line.Trim.Replace(vbCr, "").Replace(vbLf, "")
-                decryptedMessage = encryptionHelpers.CryptRC4(encryptionHelpers.HexToString(decryptedMessage), cipherText)
+                If line.Length > 0 Then
+                    cipherText = line.Trim.Replace(vbCr, "").Replace(vbLf, "")
+                    decryptedMessage = encryptionHelpers.CryptRC4(EncryptionHelpers.HexToString(decryptedMessage), cipherText)
+                End If
             Next
         End If
 
-        'Debug.WriteLine(decryptedMessage)
-
         'change the message body
         mail.Body = decryptedMessage
+
     End Sub
 
     Private Sub rbSingleLine_CheckedChanged(sender As Object, e As EventArgs) Handles rbSingleLine.CheckedChanged
@@ -86,7 +88,10 @@ Public Class tpnEncryptionTools
         lblMultilineCipher.Enabled = False
         txtMultilineCipher.Enabled = False
 
-
+        'populate variables
+        mail = ThisAddIn.appOutlook.ActiveInspector.CurrentItem
+        encryptionHelpers = New EncryptionHelpers
+        messageBody = removeEndLinebreak(mail.Body.Trim)
     End Sub
 
     Private Function removeEndLinebreak(myString As String) As String
@@ -97,4 +102,11 @@ Public Class tpnEncryptionTools
         End If
         Return myString
     End Function
+
+    Private Sub txtCipherText_TextChanged(sender As Object, e As EventArgs) Handles txtCipherText.TextChanged
+        If mail.Sent Then
+            If txtCipherText.Text.Length > 0 And messageBody.Length > 0 Then decryptBody()
+        End If
+    End Sub
+
 End Class

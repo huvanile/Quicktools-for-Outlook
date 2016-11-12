@@ -6,12 +6,16 @@ Imports Microsoft.Office.Interop.Outlook
 Public Class EmailHelpers
 
     Public Shared Sub SwapAndSteg(mail As Outlook.MailItem, steggedImage As String)
-        If Not String.IsNullOrEmpty(mail.HTMLBody) AndAlso mail.HTMLBody.ToLower().Contains("</body>") Then
-            mail.Attachments.Add(steggedImage, OlAttachmentType.olEmbeddeditem)
-            If mail.Subject = "" Then mail.Subject = "See attached pic"
-            mail.Body = "Hey, please check out the attached pic."
-            mail.Save()
-        End If
+        Try
+            If Not String.IsNullOrEmpty(mail.HTMLBody) AndAlso mail.HTMLBody.ToLower().Contains("</body>") Then
+                mail.Attachments.Add(steggedImage, OlAttachmentType.olEmbeddeditem)
+                If mail.Subject = "" Then mail.Subject = "See attached pic"
+                mail.Body = "Hey, please check out the attached pic."
+                mail.Save()
+            End If
+        Catch ex As system.Exception
+            Debug.Print(ex.message)
+        End Try
     End Sub
 
     Public Shared Property WIPEmailHTMLBody As String
@@ -41,7 +45,7 @@ Public Class EmailHelpers
                     Next
                     If tmp.Count = 0 Then tmp.Add("Selected email has no images attached")
                 Else
-                        tmp.Add("Selected email has no images attached")
+                    tmp.Add("Selected email has no images attached")
                 End If
             Else
                 tmp.Add("Selected item is not an email")

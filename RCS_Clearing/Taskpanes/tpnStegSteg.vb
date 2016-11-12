@@ -1,7 +1,6 @@
 ﻿Imports System.Threading
 Imports System.Drawing
-Imports System.IO
-Imports System.Text.RegularExpressions
+Imports Quicktools.EncryptionHelpers
 
 Public Class tpnStegSteg
     Dim t1 As Thread
@@ -48,10 +47,7 @@ Public Class tpnStegSteg
 
     Private Function BecomeSteggedImage(picFileStream As System.IO.FileStream, picBuffer As System.IO.FileInfo, theMailItem As Outlook.MailItem) As Boolean
         Try
-            Dim theBody As String = theMailItem.Body
-            theBody = theBody.Replace("'", "")
-            theBody = theBody.Replace("""", "")
-            theBody = theBody.Replace("…", "")
+            Dim hexxedBody As String = StringToHex(theMailItem.Body)
             Dim PicBytes As Long = picFileStream.Length
             Dim PicExt As String = picBuffer.Extension
             Dim tmpFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.InternetCache) & "\OutlookQuickTools\"
@@ -59,12 +55,12 @@ Public Class tpnStegSteg
             picFileStream.Read(PicByteArray, 0, PicBytes)
             Dim SentinelString() As Byte = {73, 116, 83, 116, 97, 114, 116, 115, 72, 101, 114, 101}
 
-            Dim PlainTextByteArray(theBody.Length) As Byte
-            For i As Integer = 0 To (theBody.Length - 1)
-                PlainTextByteArray(i) = CByte(AscW(theBody.Chars(i)))
-                Diagnostics.Debug.Print(i & " of " & (theBody.Length - 1))
+            Dim PlainTextByteArray(hexxedBody.Length) As Byte
+            For i As Long = 0 To (hexxedBody.Length - 1)
+                PlainTextByteArray(i) = CByte(AscW(hexxedBody.Chars(i)))
+                Diagnostics.Debug.Print(i & " of " & (hexxedBody).Length - 1)
             Next
-            Dim PicAndText(PicBytes + theBody.Length + SentinelString.Length) As Byte
+            Dim PicAndText(PicBytes + hexxedBody.Length + SentinelString.Length) As Byte
             For t As Long = 0 To (PicBytes - 1)
                 PicAndText(t) = PicByteArray(t)
             Next
@@ -74,7 +70,7 @@ Public Class tpnStegSteg
                 count += 1
             Next
             count = 0
-            For q As Long = (PicBytes + SentinelString.Length) To (PicBytes + SentinelString.Length + theBody.Length - 1)
+            For q As Long = (PicBytes + SentinelString.Length) To (PicBytes + SentinelString.Length + hexxedBody.Length - 1)
                 PicAndText(q) = PlainTextByteArray(count)
                 count += 1
             Next

@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class tpnEncryptionTools
     Inherits System.Windows.Forms.UserControl
 
     'UserControl overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,12 +20,11 @@ Partial Class tpnEncryptionTools
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(tpnEncryptionTools))
         Me.btnDecrypt = New System.Windows.Forms.Button()
         Me.btnEncrypt = New System.Windows.Forms.Button()
-        Me.lblQuestion = New System.Windows.Forms.Label()
         Me.lblCipherText = New System.Windows.Forms.Label()
         Me.txtCipherText = New System.Windows.Forms.TextBox()
         Me.txtMultilineCipher = New System.Windows.Forms.TextBox()
@@ -42,7 +41,7 @@ Partial Class tpnEncryptionTools
         Me.btnDecrypt.BackColor = System.Drawing.SystemColors.Control
         Me.btnDecrypt.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.btnDecrypt.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnDecrypt.Location = New System.Drawing.Point(156, 340)
+        Me.btnDecrypt.Location = New System.Drawing.Point(162, 347)
         Me.btnDecrypt.Name = "btnDecrypt"
         Me.btnDecrypt.Size = New System.Drawing.Size(88, 33)
         Me.btnDecrypt.TabIndex = 13
@@ -53,44 +52,35 @@ Partial Class tpnEncryptionTools
         '
         Me.btnEncrypt.BackColor = System.Drawing.SystemColors.Control
         Me.btnEncrypt.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnEncrypt.Location = New System.Drawing.Point(51, 340)
+        Me.btnEncrypt.Location = New System.Drawing.Point(57, 347)
         Me.btnEncrypt.Name = "btnEncrypt"
         Me.btnEncrypt.Size = New System.Drawing.Size(88, 33)
         Me.btnEncrypt.TabIndex = 12
         Me.btnEncrypt.Text = "Encrypt"
         Me.btnEncrypt.UseVisualStyleBackColor = False
         '
-        'lblQuestion
-        '
-        Me.lblQuestion.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblQuestion.ForeColor = System.Drawing.Color.Black
-        Me.lblQuestion.Location = New System.Drawing.Point(47, 12)
-        Me.lblQuestion.Name = "lblQuestion"
-        Me.lblQuestion.Size = New System.Drawing.Size(196, 65)
-        Me.lblQuestion.TabIndex = 11
-        Me.lblQuestion.Text = "Email Encryption Tools"
-        Me.lblQuestion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
         'lblCipherText
         '
         Me.lblCipherText.AutoSize = True
-        Me.lblCipherText.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCipherText.Location = New System.Drawing.Point(9, 122)
+        Me.lblCipherText.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblCipherText.Location = New System.Drawing.Point(9, 108)
         Me.lblCipherText.Name = "lblCipherText"
-        Me.lblCipherText.Size = New System.Drawing.Size(76, 13)
+        Me.lblCipherText.Size = New System.Drawing.Size(186, 16)
         Me.lblCipherText.TabIndex = 14
-        Me.lblCipherText.Text = "Cipher Text:"
+        Me.lblCipherText.Text = "Single line encryption key"
         '
         'txtCipherText
         '
-        Me.txtCipherText.Location = New System.Drawing.Point(12, 139)
+        Me.txtCipherText.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtCipherText.Location = New System.Drawing.Point(12, 131)
         Me.txtCipherText.Name = "txtCipherText"
-        Me.txtCipherText.Size = New System.Drawing.Size(269, 20)
+        Me.txtCipherText.Size = New System.Drawing.Size(269, 22)
         Me.txtCipherText.TabIndex = 15
         '
         'txtMultilineCipher
         '
-        Me.txtMultilineCipher.Location = New System.Drawing.Point(12, 192)
+        Me.txtMultilineCipher.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtMultilineCipher.Location = New System.Drawing.Point(12, 187)
         Me.txtMultilineCipher.Multiline = True
         Me.txtMultilineCipher.Name = "txtMultilineCipher"
         Me.txtMultilineCipher.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
@@ -100,47 +90,51 @@ Partial Class tpnEncryptionTools
         'lblMultilineCipher
         '
         Me.lblMultilineCipher.AutoSize = True
-        Me.lblMultilineCipher.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblMultilineCipher.Location = New System.Drawing.Point(9, 176)
+        Me.lblMultilineCipher.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblMultilineCipher.Location = New System.Drawing.Point(9, 164)
         Me.lblMultilineCipher.Name = "lblMultilineCipher"
-        Me.lblMultilineCipher.Size = New System.Drawing.Size(127, 13)
+        Me.lblMultilineCipher.Size = New System.Drawing.Size(175, 16)
         Me.lblMultilineCipher.TabIndex = 17
-        Me.lblMultilineCipher.Text = "Multiline Cipher Text:"
+        Me.lblMultilineCipher.Text = "Multi-line encryption key"
         '
         'rbSingleLine
         '
         Me.rbSingleLine.AutoSize = True
-        Me.rbSingleLine.Location = New System.Drawing.Point(14, 21)
+        Me.rbSingleLine.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.rbSingleLine.Location = New System.Drawing.Point(15, 25)
         Me.rbSingleLine.Name = "rbSingleLine"
-        Me.rbSingleLine.Size = New System.Drawing.Size(110, 17)
+        Me.rbSingleLine.Size = New System.Drawing.Size(150, 20)
         Me.rbSingleLine.TabIndex = 18
-        Me.rbSingleLine.Text = "Single Line Cipher"
+        Me.rbSingleLine.Text = "Single line password"
         Me.rbSingleLine.UseVisualStyleBackColor = True
         '
         'rbMultiline
         '
         Me.rbMultiline.AutoSize = True
-        Me.rbMultiline.Location = New System.Drawing.Point(127, 21)
+        Me.rbMultiline.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.rbMultiline.Location = New System.Drawing.Point(15, 51)
         Me.rbMultiline.Name = "rbMultiline"
-        Me.rbMultiline.Size = New System.Drawing.Size(96, 17)
+        Me.rbMultiline.Size = New System.Drawing.Size(140, 20)
         Me.rbMultiline.TabIndex = 19
-        Me.rbMultiline.Text = "Multiline Cipher"
+        Me.rbMultiline.Text = "Multi-line password"
         Me.rbMultiline.UseVisualStyleBackColor = True
         '
         'GroupBox1
         '
         Me.GroupBox1.Controls.Add(Me.rbSingleLine)
         Me.GroupBox1.Controls.Add(Me.rbMultiline)
-        Me.GroupBox1.Location = New System.Drawing.Point(12, 59)
+        Me.GroupBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox1.Location = New System.Drawing.Point(12, 13)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(269, 50)
+        Me.GroupBox1.Size = New System.Drawing.Size(269, 85)
         Me.GroupBox1.TabIndex = 20
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Cipher Type"
+        Me.GroupBox1.Text = "Encryption Key Type"
         '
         'Label1
         '
-        Me.Label1.Location = New System.Drawing.Point(9, 386)
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(9, 396)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(269, 123)
         Me.Label1.TabIndex = 21
@@ -158,9 +152,8 @@ Partial Class tpnEncryptionTools
         Me.Controls.Add(Me.lblCipherText)
         Me.Controls.Add(Me.btnDecrypt)
         Me.Controls.Add(Me.btnEncrypt)
-        Me.Controls.Add(Me.lblQuestion)
         Me.Name = "tpnEncryptionTools"
-        Me.Size = New System.Drawing.Size(300, 600)
+        Me.Size = New System.Drawing.Size(299, 600)
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
@@ -170,7 +163,6 @@ Partial Class tpnEncryptionTools
 
     Friend WithEvents btnDecrypt As Windows.Forms.Button
     Friend WithEvents btnEncrypt As Windows.Forms.Button
-    Friend WithEvents lblQuestion As Windows.Forms.Label
     Friend WithEvents lblCipherText As Windows.Forms.Label
     Friend WithEvents txtCipherText As Windows.Forms.TextBox
     Friend WithEvents txtMultilineCipher As Windows.Forms.TextBox
