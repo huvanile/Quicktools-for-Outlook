@@ -37,7 +37,7 @@ Partial Class tpnRCSStart
         Me.lblQuestion.Name = "lblQuestion"
         Me.lblQuestion.Size = New System.Drawing.Size(196, 65)
         Me.lblQuestion.TabIndex = 8
-        Me.lblQuestion.Text = "Look for open RCS conflict cheks now?"
+        Me.lblQuestion.Text = "Look for open RCS conflict checks now?"
         Me.lblQuestion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'btnOK

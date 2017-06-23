@@ -3,6 +3,8 @@ Imports Microsoft.Office.Interop.Outlook
 Imports Quicktools.EmailHelpers
 Imports Quicktools.ExcelHelpers
 Imports Quicktools.RegistryHelpers
+Imports Quicktools.browserHelpers
+Imports System.Threading
 Imports System.IO
 
 Public Class Ribbon1
@@ -211,5 +213,14 @@ Public Class Ribbon1
         End If
     End Sub
 
+    Private Sub btnCoffee_Click(sender As Object, e As RibbonControlEventArgs) Handles btnCoffee.Click
 
+        'instantiate IE
+        appIE = GetIE()
+        appIE.Visible = True
+
+        'load site
+        appIE.navigate("https://ko-fi.com/etools")
+
+    End Sub
 End Class

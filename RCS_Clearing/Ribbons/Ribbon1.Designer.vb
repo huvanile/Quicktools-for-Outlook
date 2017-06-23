@@ -59,6 +59,7 @@
         Me.xboxVIP1 = Me.Factory.CreateRibbonEditBox
         Me.Group2 = Me.Factory.CreateRibbonGroup
         Me.btnFeedback = Me.Factory.CreateRibbonButton
+        Me.btnCoffee = Me.Factory.CreateRibbonButton
         Me.btnShare = Me.Factory.CreateRibbonButton
         Me.tabQT.SuspendLayout()
         Me.Group1.SuspendLayout()
@@ -194,6 +195,7 @@
         '
         Me.Group2.Items.Add(Me.btnFeedback)
         Me.Group2.Items.Add(Me.btnShare)
+        Me.Group2.Items.Add(Me.btnCoffee)
         Me.Group2.Label = "Add-in Tools"
         Me.Group2.Name = "Group2"
         '
@@ -204,6 +206,14 @@
         Me.btnFeedback.Label = "Email the Developer"
         Me.btnFeedback.Name = "btnFeedback"
         Me.btnFeedback.ShowImage = True
+        '
+        'btnCoffee
+        '
+        Me.btnCoffee.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
+        Me.btnCoffee.Image = CType(resources.GetObject("btnCoffee.Image"), System.Drawing.Image)
+        Me.btnCoffee.Label = "Thank the Developer"
+        Me.btnCoffee.Name = "btnCoffee"
+        Me.btnCoffee.ShowImage = True
         '
         'btnShare
         '
@@ -249,6 +259,7 @@
     Friend WithEvents btnVIP3 As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents btnVIP2 As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents btnVIP1 As Microsoft.Office.Tools.Ribbon.RibbonButton
+    Friend WithEvents btnCoffee As Microsoft.Office.Tools.Ribbon.RibbonButton
 End Class
 
 Partial Class ThisRibbonCollection
