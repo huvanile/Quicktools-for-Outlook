@@ -59,8 +59,8 @@
         Me.xboxVIP1 = Me.Factory.CreateRibbonEditBox
         Me.Group2 = Me.Factory.CreateRibbonGroup
         Me.btnFeedback = Me.Factory.CreateRibbonButton
-        Me.btnCoffee = Me.Factory.CreateRibbonButton
         Me.btnShare = Me.Factory.CreateRibbonButton
+        Me.btnCoffee = Me.Factory.CreateRibbonButton
         Me.tabQT.SuspendLayout()
         Me.Group1.SuspendLayout()
         Me.grpInbox.SuspendLayout()
@@ -149,21 +149,21 @@
         'btnVIP3
         '
         Me.btnVIP3.Image = CType(resources.GetObject("btnVIP3.Image"), System.Drawing.Image)
-        Me.btnVIP3.Label = "Open Inbox Emails from:"
+        Me.btnVIP3.Label = "Open Emails with Sender Containing:"
         Me.btnVIP3.Name = "btnVIP3"
         Me.btnVIP3.ShowImage = True
         '
         'btnVIP2
         '
         Me.btnVIP2.Image = CType(resources.GetObject("btnVIP2.Image"), System.Drawing.Image)
-        Me.btnVIP2.Label = "Open Inbox Emails from:"
+        Me.btnVIP2.Label = "Open Emails with Subject Containing:"
         Me.btnVIP2.Name = "btnVIP2"
         Me.btnVIP2.ShowImage = True
         '
         'btnVIP1
         '
         Me.btnVIP1.Image = CType(resources.GetObject("btnVIP1.Image"), System.Drawing.Image)
-        Me.btnVIP1.Label = "Open Inbox Emails from:"
+        Me.btnVIP1.Label = "Open Emails with Body Containing:"
         Me.btnVIP1.Name = "btnVIP1"
         Me.btnVIP1.ShowImage = True
         '
@@ -207,14 +207,6 @@
         Me.btnFeedback.Name = "btnFeedback"
         Me.btnFeedback.ShowImage = True
         '
-        'btnCoffee
-        '
-        Me.btnCoffee.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
-        Me.btnCoffee.Image = CType(resources.GetObject("btnCoffee.Image"), System.Drawing.Image)
-        Me.btnCoffee.Label = "Thank the Developer"
-        Me.btnCoffee.Name = "btnCoffee"
-        Me.btnCoffee.ShowImage = True
-        '
         'btnShare
         '
         Me.btnShare.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
@@ -223,6 +215,14 @@
         Me.btnShare.Name = "btnShare"
         Me.btnShare.ShowImage = True
         Me.btnShare.SuperTip = "Prepare an email to share this ribbon with a co-worker"
+        '
+        'btnCoffee
+        '
+        Me.btnCoffee.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
+        Me.btnCoffee.Image = CType(resources.GetObject("btnCoffee.Image"), System.Drawing.Image)
+        Me.btnCoffee.Label = "Thank the Developer"
+        Me.btnCoffee.Name = "btnCoffee"
+        Me.btnCoffee.ShowImage = True
         '
         'Ribbon1
         '

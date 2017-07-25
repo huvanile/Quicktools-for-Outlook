@@ -52,57 +52,110 @@ Public Class Ribbon1
     End Sub
 
     Private Sub btnOpenCalReplies_Click(sender As Object, e As RibbonControlEventArgs) Handles btnOpenCalReplies.Click
-        Dim found As Boolean : found = False
+        Dim theCount As Short : theCount = 0
+        Dim proceed As Boolean = True
         Dim oNs As Outlook.NameSpace : oNs = ThisAddIn.appOutlook.GetNamespace("MAPI")
         Dim oFldr As Outlook.MAPIFolder : oFldr = oNs.GetDefaultFolder(OlDefaultFolders.olFolderInbox)
         Dim oMessage As Object
+
+        'first get the count
         For Each oMessage In oFldr.Items
             If oMessage.MessageClass = "IPM.Schedule.Meeting.Canceled" _
             Or oMessage.MessageClass = "IPM.Schedule.Meeting.Resp.Neg" _
             Or oMessage.MessageClass = "IPM.Schedule.Meeting.Resp.Pos" _
             Or oMessage.MessageClass = "IPM.Schedule.Meeting.Resp.Tent" Then
-                oMessage.Display
-                found = True
+                theCount += 1
             End If
         Next oMessage
+
+        'then do the opening
+        If theCount >= 15 Then
+            If MsgBox("At least 15 inbox emails are about to be opened, are you sure you'd like to proceed?", vbYesNoCancel) <> vbYes Then
+                proceed = False
+            End If
+        End If
+        If proceed And theCount > 0 Then
+            For Each oMessage In oFldr.Items
+                If oMessage.MessageClass = "IPM.Schedule.Meeting.Canceled" _
+                Or oMessage.MessageClass = "IPM.Schedule.Meeting.Resp.Neg" _
+                Or oMessage.MessageClass = "IPM.Schedule.Meeting.Resp.Pos" _
+                Or oMessage.MessageClass = "IPM.Schedule.Meeting.Resp.Tent" Then
+                    oMessage.Display
+                End If
+            Next oMessage
+        End If
         oMessage = Nothing
         oFldr = Nothing
         oNs = Nothing
-        If Not found Then MsgBox("No calendar responses found in the inbox", vbInformation, ThisAddIn.Title)
+        If theCount = 0 Then MsgBox("No calendar responses found in the inbox", vbInformation, ThisAddIn.Title)
     End Sub
 
     Private Sub btnOpenVoicemails_Click(sender As Object, e As RibbonControlEventArgs) Handles btnOpenVoicemails.Click
-        Dim found As Boolean : found = False
+        Dim theCount As Short : theCount = 0
+        Dim proceed As Boolean = True
         Dim oNs As Outlook.NameSpace : oNs = ThisAddIn.appOutlook.GetNamespace("MAPI")
         Dim oFldr As Outlook.MAPIFolder : oFldr = oNs.GetDefaultFolder(OlDefaultFolders.olFolderInbox)
         Dim oMessage As Object
+
+        'first get the count
         For Each oMessage In oFldr.Items
             If oMessage.MessageClass = "IPM.Note.Microsoft.Voicemail.UM.CA" Then
-                oMessage.Display
-                found = True
+                theCount += 1
             End If
         Next oMessage
+
+        'then do the opening
+        If theCount >= 15 Then
+            If MsgBox("At least 15 inbox emails are about to be opened, are you sure you'd like to proceed?", vbYesNoCancel) <> vbYes Then
+                proceed = False
+            End If
+        End If
+        If proceed And theCount > 0 Then
+            For Each oMessage In oFldr.Items
+                If oMessage.MessageClass = "IPM.Note.Microsoft.Voicemail.UM.CA" Then
+                    oMessage.Display
+                End If
+            Next oMessage
+        End If
+
         oMessage = Nothing
         oFldr = Nothing
         oNs = Nothing
-        If Not found Then MsgBox("No voicemails items found in the inbox", vbInformation, ThisAddIn.Title)
+        If theCount = 0 Then MsgBox("No voicemails items found in the inbox", vbInformation, ThisAddIn.Title)
     End Sub
 
     Private Sub btnOpenCalInvites_Click(sender As Object, e As RibbonControlEventArgs) Handles btnOpenCalInvites.Click
-        Dim found As Boolean : found = False
+        Dim theCount As Short : theCount = 0
+        Dim proceed As Boolean = True
         Dim oNs As Outlook.NameSpace : oNs = ThisAddIn.appOutlook.GetNamespace("MAPI")
         Dim oFldr As Outlook.MAPIFolder : oFldr = oNs.GetDefaultFolder(OlDefaultFolders.olFolderInbox)
         Dim oMessage As Object
+
+        'first get the count
         For Each oMessage In oFldr.Items
             If oMessage.MessageClass = "IPM.Schedule.Meeting.Request" Then
-                oMessage.Display
-                found = True
+                theCount += 1
             End If
         Next oMessage
+
+        'then do the opening
+        If theCount >= 15 Then
+            If MsgBox("At least 15 inbox emails are about to be opened, are you sure you'd like to proceed?", vbYesNoCancel) <> vbYes Then
+                proceed = False
+            End If
+        End If
+        If proceed And theCount > 0 Then
+            For Each oMessage In oFldr.Items
+                If oMessage.MessageClass = "IPM.Schedule.Meeting.Request" Then
+                    oMessage.Display
+                End If
+            Next oMessage
+        End If
+
         oMessage = Nothing
         oFldr = Nothing
         oNs = Nothing
-        If Not found Then MsgBox("No calendar items found in the inbox", vbInformation, ThisAddIn.Title)
+        If theCount = 0 Then MsgBox("No calendar items found in the inbox", vbInformation, ThisAddIn.Title)
     End Sub
 
     Private Sub btnInboxToExcel_Click(sender As Object, e As RibbonControlEventArgs) Handles btnInboxToExcel.Click
@@ -151,65 +204,120 @@ Public Class Ribbon1
 
     Private Sub btnVIP3_Click(sender As Object, e As RibbonControlEventArgs) Handles btnVIP3.Click
         If Not String.IsNullOrEmpty(ThisAddIn.Vip3) Then
-            Dim found As Boolean : found = False
+            Dim theCount As Short : theCount = 0
             Dim oNs As Outlook.NameSpace : oNs = ThisAddIn.appOutlook.GetNamespace("MAPI")
             Dim oFldr As Outlook.MAPIFolder : oFldr = oNs.GetDefaultFolder(OlDefaultFolders.olFolderInbox)
-
             Dim oMessage As Object
+            Dim proceed As Boolean : proceed = True
+
+            'first get the count
             For Each oMessage In oFldr.Items
-                If oMessage.MessageClass = "IPM.Note" And LCase(oMessage.SenderName) Like "*" & LCase(ThisAddIn.Vip3) & "*" Then
-                    oMessage.Display
-                    found = True
+                If oMessage.MessageClass = "IPM.Note" And LCase(oMessage.sendername) Like "*" & LCase(ThisAddIn.Vip3) & "*" Then
+                    theCount += 1
                 End If
             Next oMessage
+
+            'then do the opening
+            If theCount >= 15 Then
+                If MsgBox("At least 15 inbox emails are about to be opened, are you sure you'd like to proceed?", vbYesNoCancel) <> vbYes Then
+                    proceed = False
+                End If
+            End If
+            If proceed And theCount > 0 Then
+                For Each oMessage In oFldr.Items
+                    If oMessage.MessageClass = "IPM.Note" And LCase(oMessage.sendername) Like "*" & LCase(ThisAddIn.Vip3) & "*" Then
+                        oMessage.Display()
+                    End If
+                Next oMessage
+            End If
+
             oMessage = Nothing
             oFldr = Nothing
             oNs = Nothing
-            If Not found Then MsgBox("No emails from this person found in the inbox. Try using just their last name if you feel you reached this message in error.", vbInformation, ThisAddIn.Title)
+            If Not theCount > 0 Then MsgBox("No emails matching this search criteria were found in the inbox.", vbInformation, ThisAddIn.Title)
         Else
-            MsgBox("Please populate the name field in the ribbon and try again.", vbInformation, ThisAddIn.Title)
+            MsgBox("Please populate the field in the ribbon adjacent to the button you just pressed and try again.", vbInformation, ThisAddIn.Title)
         End If
     End Sub
 
     Private Sub btnVIP2_Click(sender As Object, e As RibbonControlEventArgs) Handles btnVIP2.Click
         If Not String.IsNullOrEmpty(ThisAddIn.Vip2) Then
-            Dim found As Boolean : found = False
+            Dim theCount As Short : theCount = 0
             Dim oNs As Outlook.NameSpace : oNs = ThisAddIn.appOutlook.GetNamespace("MAPI")
             Dim oFldr As Outlook.MAPIFolder : oFldr = oNs.GetDefaultFolder(OlDefaultFolders.olFolderInbox)
             Dim oMessage As Object
+            Dim proceed As Boolean : proceed = True
+
+            'first get the count
             For Each oMessage In oFldr.Items
-                If oMessage.MessageClass = "IPM.Note" And LCase(oMessage.SenderName) Like "*" & LCase(ThisAddIn.Vip2) & "*" Then
-                    oMessage.Display
-                    found = True
+                If oMessage.MessageClass = "IPM.Note" And LCase(oMessage.Subject) Like "*" & LCase(ThisAddIn.Vip2) & "*" Then
+                    theCount += 1
                 End If
             Next oMessage
+
+            'then do the opening
+            If theCount >= 15 Then
+                If MsgBox("At least 15 inbox emails are about to be opened, are you sure you'd like to proceed?", vbYesNoCancel) <> vbYes Then
+                    proceed = False
+                End If
+            End If
+            If proceed And theCount > 0 Then
+                For Each oMessage In oFldr.Items
+                    If oMessage.MessageClass = "IPM.Note" And LCase(oMessage.Subject) Like "*" & LCase(ThisAddIn.Vip2) & "*" Then
+                        oMessage.Display()
+                    End If
+                Next oMessage
+            End If
+
             oMessage = Nothing
             oFldr = Nothing
             oNs = Nothing
-            If Not found Then MsgBox("No emails from this person found in the inbox. Try using just their last name if you feel you reached this message in error.", vbInformation, ThisAddIn.Title)
+            If Not theCount > 0 Then MsgBox("No emails matching this search criteria were found in the inbox.", vbInformation, ThisAddIn.Title)
         Else
-            MsgBox("Please populate the name field in the ribbon and try again.", vbInformation, ThisAddIn.Title)
+            MsgBox("Please populate the field in the ribbon adjacent to the button you just pressed and try again.", vbInformation, ThisAddIn.Title)
         End If
     End Sub
 
+    ''' <summary>
+    ''' This opens all inbox items with specific text in the email body
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub btnVIP1_Click(sender As Object, e As RibbonControlEventArgs) Handles btnVIP1.Click
         If Not String.IsNullOrEmpty(ThisAddIn.Vip1) Then
-            Dim found As Boolean : found = False
+            Dim theCount As Short : theCount = 0
             Dim oNs As Outlook.NameSpace : oNs = ThisAddIn.appOutlook.GetNamespace("MAPI")
             Dim oFldr As Outlook.MAPIFolder : oFldr = oNs.GetDefaultFolder(OlDefaultFolders.olFolderInbox)
             Dim oMessage As Object
+            Dim proceed As Boolean : proceed = True
+
+            'first get the count
             For Each oMessage In oFldr.Items
-                If oMessage.MessageClass = "IPM.Note" And LCase(oMessage.SenderName) Like "*" & LCase(ThisAddIn.Vip1) & "*" Then
-                    oMessage.Display
-                    found = True
+                If oMessage.MessageClass = "IPM.Note" And LCase(oMessage.Body) Like "*" & LCase(ThisAddIn.Vip1) & "*" Then
+                    theCount += 1
                 End If
             Next oMessage
+
+            'then do the opening
+            If theCount >= 15 Then
+                If MsgBox("At least 15 inbox emails are about to be opened, are you sure you'd like to proceed?", vbYesNoCancel) <> vbYes Then
+                    proceed = False
+                End If
+            End If
+            If proceed And theCount > 0 Then
+                For Each oMessage In oFldr.Items
+                    If oMessage.MessageClass = "IPM.Note" And LCase(oMessage.Body) Like "*" & LCase(ThisAddIn.Vip1) & "*" Then
+                        oMessage.Display()
+                    End If
+                Next oMessage
+            End If
+
             oMessage = Nothing
             oFldr = Nothing
             oNs = Nothing
-            If Not found Then MsgBox("No emails from this person found in the inbox. Try using just their last name if you feel you reached this message in error.", vbInformation, ThisAddIn.Title)
+            If Not theCount > 0 Then MsgBox("No emails matching this search criteria were found in the inbox.", vbInformation, ThisAddIn.Title)
         Else
-            MsgBox("Please populate the name field in the ribbon and try again.", vbInformation, ThisAddIn.Title)
+            MsgBox("Please populate the field in the ribbon adjacent to the button you just pressed and try again.", vbInformation, ThisAddIn.Title)
         End If
     End Sub
 
