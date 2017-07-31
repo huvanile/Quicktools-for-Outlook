@@ -39,7 +39,7 @@
     <PublishUrl>L:\eTools\rcsOutlook\current\</PublishUrl>
     <InstallUrl>\\dal-fs-001\bas%24\eTools\rcsOutlook\current\</InstallUrl>
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>1.0.0.6</ApplicationVersion>
+    <ApplicationVersion>1.0.0.7</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>7</UpdateInterval>
@@ -289,6 +289,7 @@
     <EmbeddedResource Include="Taskpanes\tpnStegUnsteg.resx">
       <DependentUpon>tpnStegUnsteg.vb</DependentUpon>
     </EmbeddedResource>
+    <None Include="QuickTools_TemporaryKey.pfx" />
     <None Include="ThisAddIn.Designer.xml">
       <DependentUpon>ThisAddIn.vb</DependentUpon>
     </None>
@@ -356,7 +357,7 @@
     <ManifestKeyFile>QuickTools_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>DDCDB6DBDCB12523BF01C578137449300F2B894A</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>3D72FA18946515AA2615EEBAAAF17C65976C72BD</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <DelaySign>false</DelaySign>

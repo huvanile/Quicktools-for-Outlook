@@ -233,12 +233,15 @@ loadSecondPage:
     Sub askUserIfWantToClear()
         Dim tData As Object = Nothing       ' td
         Dim splitholder
+        Dim tmpName As String
         Dim ElementCol As Object = appIE.document.getElementsByTagName("td")
         For Each tData In ElementCol
             If tData.innerhtml Like "*<BR>*" Then 'every available check has a line break between client name and country name
                 If Not tData.innerhtml Like "*Confidentiality*" Then
                     splitholder = Split(tData.innerhtml, "<BR>")
-                    checkList = checkList & " - " & Trim(splitholder(0)) & vbCrLf
+                    tmpName = Trim(splitholder(0))
+                    tmpName = Replace(tmpName, "<DIV class=RedText>", "")
+                    checkList = checkList & " - " & tmpName & vbCrLf
                     checkCount += 1
                 End If
             End If
