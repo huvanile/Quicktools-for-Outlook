@@ -1,4 +1,5 @@
 ﻿Imports System.Drawing
+Imports System.Threading.Tasks
 Imports Quicktools.browserHelpers
 
 Public Class rcs
@@ -109,102 +110,108 @@ Public Class rcs
 #End Region
 
     'factory sub which does the guts of this ribbon
-    Public Sub startRCSClearing()
+    Public Async Sub startRCSClearing()
+        Await Task.Run(
+            Sub()
+                'instantiate IE
+                appIE = GetIE()
+                appIE.Visible = False
+                'appIE.Visible = True
 
-        'instantiate IE
-        appIE = GetIE()
-        appIE.Visible = False
-        'appIE.Visible = True
+                'load site
+                updateLblStatusSafe("Opening RCS Site in IE")
+                appIE.navigate(sURL)
 
-        'load site
-        updateLblStatusSafe("Opening RCS Site in IE")
-        appIE.navigate(sURL)
+                'check for checks needing a response
+                updateLblStatusSafe("Looking for open checks")
+                waitForPageLoad()
+                checkForConflictsOrExit() : If Not ThisAddIn.Proceed Then Exit Sub
+                askUserIfWantToClear() : If Not ThisAddIn.Proceed Then Exit Sub
 
-        'check for checks needing a response
-        updateLblStatusSafe("Looking for open checks")
-        waitForPageLoad()
-        checkForConflictsOrExit() : If Not ThisAddIn.Proceed Then Exit Sub
-        askUserIfWantToClear() : If Not ThisAddIn.Proceed Then Exit Sub
-
+            End Sub)
     End Sub
 
-    Public Sub finishRCSClearing()
-        'variable declaration
-        Dim clicked As Boolean = False
-        Dim clicked2 As Boolean = False
-        Dim attempts As Integer = 0
-        Dim attempts2 As Integer = 0
-        Dim myLinks As Object = Nothing
-        Dim btnInput As Object = Nothing    ' MSHTML.HTMLInputElement
-        Dim Link As Object = Nothing        ' MSHTML.HTMLAnchorElement
-        Dim ElementCol As Object = Nothing  ' MSHTML.IHTMLElementCollection
-        Dim i As Integer = 0               ' counter used for status bar incrementing
+    Public Async Sub finishRCSClearing()
+#Disable Warning BC42358 ' Because this call is not awaited, execution of the current method continues before the call is completed
+        Task.Run(
+            Sub()
+                'variable declaration
+                Dim clicked As Boolean = False
+                Dim clicked2 As Boolean = False
+                Dim attempts As Integer = 0
+                Dim attempts2 As Integer = 0
+                Dim myLinks As Object = Nothing
+                Dim btnInput As Object = Nothing    ' MSHTML.HTMLInputElement
+                Dim Link As Object = Nothing        ' MSHTML.HTMLAnchorElement
+                Dim ElementCol As Object = Nothing  ' MSHTML.IHTMLElementCollection
+                Dim i As Integer = 0               ' counter used for status bar incrementing
 
-        updateLblQuestionSafe("Working...")
-        disableControlSafe("btnOK")
-        disableControlSafe("btnCancel")
+                updateLblQuestionSafe("Working...")
+                disableControlSafe("btnOK")
+                disableControlSafe("btnCancel")
 
-        'go into the detail page for each conflict
+                'go into the detail page for each conflict
 loadFirstPage:
 
-        If checkCount = 0 Then
-            updateLblStatusSafe("Something went wrong.  Check your connectivity to the GT network and try again.")
-            Exit Sub
-        End If
-        i += 1
-        If Not i > checkCount Then
-            updateLblStatusSafe("Clearing check " & i & " of " & checkCount)
-        Else
-            updateLblStatusSafe("Clearing check " & checkCount & " of " & checkCount)
-        End If
-
-
-        waitForPageLoad()
-        checkForConflictsOrExit() : If Not ThisAddIn.Proceed Then Exit Sub
-        clicked = False
-        attempts = 0
-        Do Until clicked = True Or attempts > tryCount
-            waitForPageLoad()
-            myLinks = appIE.document.getElementsByTagName("a")
-            For Each Link In myLinks
-                If Link.innerHTML Like "*Open Check*" Then
-                    Link.Click() 'click the use plaintext formatting button so we can populate the body correctly
-                    clicked = True
-                    Exit For
+                If checkCount = 0 Then
+                    updateLblStatusSafe("Something went wrong.  Check your connectivity to the GT network and try again.")
+                    Exit Sub
                 End If
-            Next Link
-            attempts += 1
-        Loop
+                i += 1
+                If Not i > checkCount Then
+                    updateLblStatusSafe("Clearing check " & i & " of " & checkCount)
+                Else
+                    updateLblStatusSafe("Clearing check " & checkCount & " of " & checkCount)
+                End If
 
-        'exit gracefully if needed
-        If Not clicked Then
-            appIE = Nothing
-            updateLblQuestionSafe("Done!")
-            updateLblStatusSafe(clearCount & " checks cleared!")
-            Exit Sub
-        End If
+
+                waitForPageLoad()
+                checkForConflictsOrExit() : If Not ThisAddIn.Proceed Then Exit Sub
+                clicked = False
+                attempts = 0
+                Do Until clicked = True Or attempts > tryCount
+                    waitForPageLoad()
+                    myLinks = appIE.document.getElementsByTagName("a")
+                    For Each Link In myLinks
+                        If Link.innerHTML Like "*Open Check*" Then
+                            Link.Click() 'click the use plaintext formatting button so we can populate the body correctly
+                            clicked = True
+                            Exit For
+                        End If
+                    Next Link
+                    attempts += 1
+                Loop
+
+                'exit gracefully if needed
+                If Not clicked Then
+                    appIE = Nothing
+                    updateLblQuestionSafe("Done!")
+                    updateLblStatusSafe(clearCount & " checks cleared!")
+                    Exit Sub
+                End If
 
 loadSecondPage:
 
-        ' loop through all 'input' elements and find the one with the value "Submit"
-        clicked2 = False
-        attempts2 = 0
-        Do Until clicked2 = True Or attempts2 > tryCount
-            waitForPageLoad()
-            ElementCol = appIE.document.getElementsByTagName("INPUT")
-            For Each btnInput In ElementCol
-                If btnInput.Value = "Reporting Complete" Then
-                    btnInput.Click()
-                    clicked2 = True
-                    clearCount = clearCount + 1
-                    Exit For
-                End If
-            Next btnInput
-            attempts2 += 1
-        Loop
+                ' loop through all 'input' elements and find the one with the value "Submit"
+                clicked2 = False
+                attempts2 = 0
+                Do Until clicked2 = True Or attempts2 > tryCount
+                    waitForPageLoad()
+                    ElementCol = appIE.document.getElementsByTagName("INPUT")
+                    For Each btnInput In ElementCol
+                        If btnInput.Value = "Reporting Complete" Then
+                            btnInput.Click()
+                            clicked2 = True
+                            clearCount = clearCount + 1
+                            Exit For
+                        End If
+                    Next btnInput
+                    attempts2 += 1
+                Loop
 
-        GoTo loadFirstPage
-
+                GoTo loadFirstPage
+            End Sub)
+#Enable Warning BC42358 ' Because this call is not awaited, execution of the current method continues before the call is completed
     End Sub
 
     Sub checkForConflictsOrExit()
