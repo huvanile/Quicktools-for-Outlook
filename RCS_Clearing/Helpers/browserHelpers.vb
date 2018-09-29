@@ -1,5 +1,8 @@
-﻿Public Class browserHelpers
-    Public Shared appIE As Object
+﻿Imports SHDocVw
+
+Public Class browserHelpers
+
+    Public Shared appIE As InternetExplorerMedium
 
     ' loop until the page finishes loading``
     Public Shared Sub waitForPageLoad()
@@ -12,7 +15,7 @@
     End Sub
 
     Public Shared Function GetIE() As Object
-        GetIE = CreateObject("InternetExplorer.Application")
+        GetIE = New InternetExplorerMedium
     End Function
 
 End Class

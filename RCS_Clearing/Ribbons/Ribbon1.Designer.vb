@@ -44,8 +44,12 @@
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Ribbon1))
         Me.tabQT = Me.Factory.CreateRibbonTab
         Me.Group1 = Me.Factory.CreateRibbonGroup
-        Me.btnRCSCheck = Me.Factory.CreateRibbonButton
         Me.grpInbox = Me.Factory.CreateRibbonGroup
+        Me.xboxVIP3 = Me.Factory.CreateRibbonEditBox
+        Me.xboxVIP2 = Me.Factory.CreateRibbonEditBox
+        Me.xboxVIP1 = Me.Factory.CreateRibbonEditBox
+        Me.Group2 = Me.Factory.CreateRibbonGroup
+        Me.btnRCSCheck = Me.Factory.CreateRibbonButton
         Me.btnInboxToExcel = Me.Factory.CreateRibbonButton
         Me.btnOpenVoicemails = Me.Factory.CreateRibbonButton
         Me.btnOpenRandomEmail = Me.Factory.CreateRibbonButton
@@ -54,10 +58,6 @@
         Me.btnVIP3 = Me.Factory.CreateRibbonButton
         Me.btnVIP2 = Me.Factory.CreateRibbonButton
         Me.btnVIP1 = Me.Factory.CreateRibbonButton
-        Me.xboxVIP3 = Me.Factory.CreateRibbonEditBox
-        Me.xboxVIP2 = Me.Factory.CreateRibbonEditBox
-        Me.xboxVIP1 = Me.Factory.CreateRibbonEditBox
-        Me.Group2 = Me.Factory.CreateRibbonGroup
         Me.btnFeedback = Me.Factory.CreateRibbonButton
         Me.btnShare = Me.Factory.CreateRibbonButton
         Me.btnCoffee = Me.Factory.CreateRibbonButton
@@ -72,7 +72,7 @@
         Me.tabQT.Groups.Add(Me.Group1)
         Me.tabQT.Groups.Add(Me.grpInbox)
         Me.tabQT.Groups.Add(Me.Group2)
-        Me.tabQT.Label = "QUICKTOOLS"
+        Me.tabQT.Label = "QuickTools"
         Me.tabQT.Name = "tabQT"
         '
         'Group1
@@ -80,15 +80,6 @@
         Me.Group1.Items.Add(Me.btnRCSCheck)
         Me.Group1.Label = "GT Tools"
         Me.Group1.Name = "Group1"
-        '
-        'btnRCSCheck
-        '
-        Me.btnRCSCheck.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
-        Me.btnRCSCheck.Image = CType(resources.GetObject("btnRCSCheck.Image"), System.Drawing.Image)
-        Me.btnRCSCheck.Label = "Clear Conflicts"
-        Me.btnRCSCheck.Name = "btnRCSCheck"
-        Me.btnRCSCheck.ShowImage = True
-        Me.btnRCSCheck.SuperTip = "Attempt to automatically clear open relationship checks"
         '
         'grpInbox
         '
@@ -105,6 +96,47 @@
         Me.grpInbox.Items.Add(Me.xboxVIP1)
         Me.grpInbox.Label = "Inbox Tools"
         Me.grpInbox.Name = "grpInbox"
+        '
+        'xboxVIP3
+        '
+        Me.xboxVIP3.Label = " "
+        Me.xboxVIP3.Name = "xboxVIP3"
+        Me.xboxVIP3.ShowLabel = False
+        Me.xboxVIP3.SizeString = "xxxxxxxxxxxxxxxxxxx"
+        Me.xboxVIP3.Text = Nothing
+        '
+        'xboxVIP2
+        '
+        Me.xboxVIP2.Label = " "
+        Me.xboxVIP2.Name = "xboxVIP2"
+        Me.xboxVIP2.ShowLabel = False
+        Me.xboxVIP2.SizeString = "xxxxxxxxxxxxxxxxxxx"
+        Me.xboxVIP2.Text = Nothing
+        '
+        'xboxVIP1
+        '
+        Me.xboxVIP1.Label = " "
+        Me.xboxVIP1.Name = "xboxVIP1"
+        Me.xboxVIP1.ShowLabel = False
+        Me.xboxVIP1.SizeString = "xxxxxxxxxxxxxxxxxxx"
+        Me.xboxVIP1.Text = Nothing
+        '
+        'Group2
+        '
+        Me.Group2.Items.Add(Me.btnFeedback)
+        Me.Group2.Items.Add(Me.btnShare)
+        Me.Group2.Items.Add(Me.btnCoffee)
+        Me.Group2.Label = "Add-in Tools"
+        Me.Group2.Name = "Group2"
+        '
+        'btnRCSCheck
+        '
+        Me.btnRCSCheck.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
+        Me.btnRCSCheck.Image = CType(resources.GetObject("btnRCSCheck.Image"), System.Drawing.Image)
+        Me.btnRCSCheck.Label = "Clear Conflicts"
+        Me.btnRCSCheck.Name = "btnRCSCheck"
+        Me.btnRCSCheck.ShowImage = True
+        Me.btnRCSCheck.SuperTip = "Attempt to automatically clear open relationship checks"
         '
         'btnInboxToExcel
         '
@@ -166,38 +198,6 @@
         Me.btnVIP1.Label = "Open Emails with Body Containing:"
         Me.btnVIP1.Name = "btnVIP1"
         Me.btnVIP1.ShowImage = True
-        '
-        'xboxVIP3
-        '
-        Me.xboxVIP3.Label = " "
-        Me.xboxVIP3.Name = "xboxVIP3"
-        Me.xboxVIP3.ShowLabel = False
-        Me.xboxVIP3.SizeString = "xxxxxxxxxxxxxxxxxxx"
-        Me.xboxVIP3.Text = Nothing
-        '
-        'xboxVIP2
-        '
-        Me.xboxVIP2.Label = " "
-        Me.xboxVIP2.Name = "xboxVIP2"
-        Me.xboxVIP2.ShowLabel = False
-        Me.xboxVIP2.SizeString = "xxxxxxxxxxxxxxxxxxx"
-        Me.xboxVIP2.Text = Nothing
-        '
-        'xboxVIP1
-        '
-        Me.xboxVIP1.Label = " "
-        Me.xboxVIP1.Name = "xboxVIP1"
-        Me.xboxVIP1.ShowLabel = False
-        Me.xboxVIP1.SizeString = "xxxxxxxxxxxxxxxxxxx"
-        Me.xboxVIP1.Text = Nothing
-        '
-        'Group2
-        '
-        Me.Group2.Items.Add(Me.btnFeedback)
-        Me.Group2.Items.Add(Me.btnShare)
-        Me.Group2.Items.Add(Me.btnCoffee)
-        Me.Group2.Label = "Add-in Tools"
-        Me.Group2.Name = "Group2"
         '
         'btnFeedback
         '
